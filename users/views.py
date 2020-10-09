@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User 
 from django.contrib import  messages
 from .forms import UserRegistrationForm
+from django.contrib.auth.decorators import login_required
 #All the messages
 
 # messages.debug
@@ -9,7 +10,7 @@ from .forms import UserRegistrationForm
 # messages.success
 # messages.warning
 # messages.error
-
+ 
 # Create your views here.
 def register(request):
     if request.method== 'POST':
@@ -23,3 +24,8 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request,'users/register.html',{'form':form})
+
+@login_required
+def profile(request):
+
+    return render(request,'users/profile.html')
