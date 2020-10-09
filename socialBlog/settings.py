@@ -121,7 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') #jeikhane uploaded file would be stored. jekomo os e and base dir er media folder e
+MEDIA_URL = '/media/'
+
+
+
 CRISPY_TEMPLATE_PACKS = 'bootstrap4' 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login' #login chhara kew /prifile likhle 404 na dekhay direct login e niye jabe
                     #And then login korle landing page hobe profile, not home
+
