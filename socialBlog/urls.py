@@ -27,7 +27,7 @@ urlpatterns = [
     path('profile/',user_views.profile,name='profile'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'), #class based view
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'), #class based view
-]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # if settings.DEBUG:
 #     urlpatterns+= + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
