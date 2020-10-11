@@ -16,7 +16,14 @@ class PostListView(ListView):
     template_name = 'blog/home.html' #<appname>/<model>_<viewtype>.html
     context_object_name = 'all_posts' #jei name template e loop korbo
     ordering =['-date']
+    paginate_by = 8
 
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_posts.html' #<appname>/<model>_<viewtype>.html
+    context_object_name = 'all_posts' #jei name template e loop korbo
+    ordering =['-date']
+    paginate_by = 8
 class PostDetailedView(DetailView): 
     model = Post
 
