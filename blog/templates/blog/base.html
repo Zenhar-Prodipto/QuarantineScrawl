@@ -13,11 +13,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
 
-    {% if title %}
-        <title>Django Blog - {{ title }}</title>
-    {% else %}
-        <title>Django Blog</title>
-    {% endif %}
+    {% block title %}<title>QuarantineScrawl</title>{% endblock %}
 </head> 
 <body>
     <header class="site-header">

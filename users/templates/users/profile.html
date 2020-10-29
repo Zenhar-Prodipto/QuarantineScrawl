@@ -1,5 +1,7 @@
 
 {% extends "blog/base.html" %}
+{% block title %}<title>{{user.username}}</title>{% endblock %}
+
 {%load static %}
 {% load crispy_forms_tags %}
 

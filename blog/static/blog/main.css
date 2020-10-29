@@ -26,6 +26,7 @@ ul {
 
 .site-header .navbar-nav .nav-link {
   color: #cbd5db;
+  font-weight: 400;
 }
 
 .site-header .navbar-nav .nav-link:hover {
@@ -49,7 +50,8 @@ ul {
 }
 
 a.article-title:hover {
-  color: #428bca;
+  /* color: #428bca; */
+  color: #a20025;
   text-decoration: none;
 }
 
@@ -61,6 +63,7 @@ a.article-title:hover {
   height: 65px;
   width: 65px;
   margin-right: 16px;
+  border-radius: 20px;
 }
 
 .article-metadata {
@@ -85,6 +88,10 @@ a.article-title:hover {
   width: 125px;
   margin-right: 20px;
   margin-bottom: 16px;
+}
+.home-post-author {
+  color: #a20025;
+  font-weight: 500;
 }
 
 .account-heading {
