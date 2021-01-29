@@ -1,14 +1,11 @@
+
+#Test Home view with carousel 
+============================================================
+
+
 {% extends "blog/base.html" %}
-{% load static %}
-
-{% block bootstrapClass %}
-<link rel="stylesheet" type="text/css" href="{% static 'blog/blog-css/home.css' %}">
- {% endblock %}
-
 {% block content %}
 
-<div class="row">
-  <div class="col-8">
   {% for post in all_posts %}
   <div class="home-post-main-wrap">
    
@@ -30,19 +27,19 @@
             
             
             <div class="post-title">
-              <p><a style="color: black;" href="{% url 'post-detail' post.id %}">{{post.title}}</a></p>
+              <p>{{post.title}}</p>
             </div>
 
             <div class="post-content">
               <p>{{post.content|slice:"0:100"}} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
-              
+  
             </div>   
         </div>
 
      
       </div>
   
-<!-- 
+
       <div class="home-carousel-control">
       <a class="carousel-control-prev" href="#home-carousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -52,31 +49,12 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div> -->
-
     </div>
+    </div>
+
   </div>
   {% endfor %}
-
-  </div>
-
-  <div class="col-md-4">
-    <div class="content-section">
-      <h3>Explore </h3>
-      <p class=''>Explore what's happening in Quarantine
-        <ul class="list-group explore">
-          <li class="list-group-item  ">Top Posts</li>
-          <li class="list-group-item  ">Top posts by your friends</li>
-          <li class="list-group-item  ">Top Quarantine song covers</li>
-          <li class="list-group-item  ">Stress Relief</li>
-        </ul>
-      </p>
-    </div>
-  </div>
-
-</div>
-
-
+    <!-- {% endfor %}   -->
  
     {% if is_paginated %}
 
@@ -101,3 +79,76 @@
   {% endif %}
 {% endblock content %}
 
+
+
+test home view without carousel
+========================================
+
+===============================================
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+  <div class="home-post-main-wrap">
+
+    <div class="home-carousel">
+
+      <div class="home-carousel-inner">
+        {% for post in all_posts %}
+        <div class="home-carousel-item">
+          
+
+            <div class="home-image-wrap">
+                <img  src="{{post.author.profile.image.url}}" alt="img">
+            </div>
+
+            <div class="post-author">
+             <p> Post By <a class="post-author-link" href="{% url 'user-posts' post.author.username  %}"> {{post.author}}</a></p>  
+            </div>
+
+            <div class="post-date">
+              <p >{{post.date}}</p>
+            </div>
+            
+            
+            <div class="post-title">
+              <p>{{post.title}}</p>
+            </div>
+
+            <div class="post-content">
+              <p>{{post.content|slice:"0:100"}} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
+  
+            </div>   
+        </div>
+        {% endfor %}
+        
+      </div>
+     </div>
+ 
+      </div>
+  
+  
+
+ 
+    {% if is_paginated %}
+
+    {% if page_obj.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    {% endif %}
+
+  {% endif %}
+{% endblock content %}

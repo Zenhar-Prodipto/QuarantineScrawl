@@ -30,3 +30,12 @@ class CommentsForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["user", "user_comment"]
+
+
+# class PasswordUpdateForm(forms.ModelForm):
+#     email = forms.EmailField()
+#     password = forms.PasswordField()
+
+#     class Meta:
+#         model = User
+#         fields = ["Password"]

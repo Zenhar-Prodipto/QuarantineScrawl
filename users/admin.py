@@ -5,3 +5,4 @@ from .models import Profile, Comment, Like
 admin.site.register(Profile)
 admin.site.register(Comment)
 admin.site.register(Like)
+# admin.site.register(FollowModel)

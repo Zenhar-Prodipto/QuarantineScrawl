@@ -1,24 +1,24 @@
 body {
   /* background: #fafafa; */
   /* color: #333333; */
-  background-color: #333;
+  background-color: black;
   margin-top: 5rem;
 }
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
   color: #444444;
-}
+} */
 
 ul {
   margin: 0;
 }
 
-.bg-steel {
+.navbar-bg-steel {
   /* background-color: #5f788a; */
   background-color: #a20025;
   /* background-color: #c7004c; */
@@ -96,17 +96,4 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
-}
-
-.explore {
-  height: 500px;
-}
-
-.explore li {
-  height: 6em;
-}
-
-.user-posts-title {
-  color: #428bca;
-  padding-bottom: 7px;
 }

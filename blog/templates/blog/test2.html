@@ -1,0 +1,38 @@
+
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+
+ 
+{% for n in name %}
+<p style="color:white;">Do you follow {{n.user}}? : {{following}}</p>
+{% if following %}
+
+
+<form action="{% url 'follow-unfollow-view' %}" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" name="profile_pk" value="{{n.pk}}">
+    <button type="submit">Unfollow</button>
+</form>
+
+{% else %}
+<form action="{% url 'follow-unfollow-view' %}" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" name="profile_pk" value="{{n.pk}}">
+    <button type="submit" >Follow</button>
+</form>
+
+{% endif %}
+{% endfor %}
+
+
+
+ <br>
+{% for post in posts %}
+<p style="color:white;">{{post.title}}</p>
+{% endfor %}
+{% endblock content %}
+

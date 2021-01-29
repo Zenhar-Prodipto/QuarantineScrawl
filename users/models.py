@@ -9,7 +9,8 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default="poseidon.jpg", upload_to="profile_pics")
-    follows = models.ManyToManyField(User, related_name="+")
+    follow = models.ManyToManyField(User, related_name="followers", blank=True)
+    follower = models.ManyToManyField(User, related_name="follows", blank=True)
 
     def __str__(self):
         return f"{self.user.username} Profile"
@@ -26,7 +27,7 @@ class Profile(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user_comment = models.TextField(null=True)
+    user_comment = models.TextField()
 
     def __str__(self):
         return f"{self.user.username}'s Comment"
@@ -38,6 +39,21 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Like"
+
+
+# class FollowModel(models.Model):
+#     user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
+#     follows = models.ForeignKey(
+#         User, default=None, related_name="followers", on_delete=models.CASCADE
+#     )
+#     followers = models.ForeignKey(
+#         User, default=None, related_name="follows", on_delete=models.CASCADE
+#     )
+
+#     # followers = models.ManyToManyField(User, related_name="follows")
+
+#     def __str__(self):
+#         return "follows:{}, followed by:{}".format(self.followers, self.follows)
 
 
 # def save(self, *args, **kwargs):

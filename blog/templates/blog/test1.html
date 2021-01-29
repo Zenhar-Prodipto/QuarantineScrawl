@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>All priofile</title>{% endblock %}
+{% block content %}
+
+{% for profile in profiles %}
+
+<br>
+<p style="color: white;">{{profile.user}}</p>
+<p><a href="{% url 'test-details' profile.id %}">Visit this person's profile</a></p>
+
+
+{% endfor %}
+  
+
+{% endblock content %}
