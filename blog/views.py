@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
-from users.models import Profile, Comment, Like
+from .models import Post, Like, Comment
+from users.models import Profile
 from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
@@ -54,8 +54,57 @@ class UserPostListView(ListView):
         return Post.objects.filter(author=user).order_by("-date")
 
 
-class PostDetailedView(DetailView):
+class PostDetailedView(LoginRequiredMixin, DetailView):
+
     model = Post
+
+    def get_object(self, **kwargs):  # getting the pk from the url
+        pk = self.kwargs.get("pk")
+        post_id = Post.objects.get(id=pk)
+        return post_id
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        post_id = self.get_object()
+        loggedInProfile = Profile.objects.get(user=self.request.user)
+
+        if post_id.author in loggedInProfile.follow.all():
+            displayReactionButton = True
+        else:
+            displayReactionButton = False
+
+        context["displayReactionButton"] = displayReactionButton
+        context["post"] = Post.objects.get(id=post_id.id)
+        context["user"] = loggedInProfile.user
+        return context
+
+
+def PostLikeView(request):
+
+    if request.method == "POST":
+        loggedInProfile = Profile.objects.get(user=request.user)
+        p_id = request.POST.get("post_id_from_form")
+        post_id = Post.objects.get(id=p_id)
+
+        if loggedInProfile.user in post_id.liked.all():
+            post_id.liked.remove(loggedInProfile.user)
+        else:
+            post_id.liked.add(loggedInProfile.user)
+
+        like, created = Like.objects.get_or_create(
+            user=loggedInProfile.user, post_id=post_id.id
+        )
+
+        # if not created:
+        #     if like.value == "Like":
+        #         like.value = "Unlike"
+        #     else:
+        #         like.value = "Like"
+
+        like.save()
+        return redirect(request.META.get("HTTP_REFERER"))
+    return redirect("blog:post-detail")
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
