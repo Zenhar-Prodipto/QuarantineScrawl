@@ -8,6 +8,7 @@ from .views import (
     UserPostListView,
     AmigosPostListView,
     PostLikeView,
+    PostCommentView,
     Test,
     TestDetailed,
     follow_unfollow_view,
@@ -26,6 +27,7 @@ urlpatterns = [
     path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
     path("post/like", views.PostLikeView, name="like-post"),
+    path("post/comment", views.PostCommentView, name="comment-post"),
     path("about/", views.about, name="about"),
     # practice
     # path("testHome/", views.testView, name="test-view"),
@@ -35,3 +37,38 @@ urlpatterns = [
     path("user/fu/", views.follow_unfollow_view, name="follow-unfollow-view"),
     path("amigos/", TestAmigos.as_view(), name="test-amigos"),
 ]
+
+
+# from .models import Post, Comment
+# from .forms import EmailPostForm, CommentForm
+
+# def post_detail(request, year, month, day, post):
+#     post = get_object_or_404(Post, slug=post,
+#                                    status='published',
+#                                    publish__year=year,
+#                                    publish__month=month,
+#                                    publish__day=day)
+
+#     # List of active comments for this post
+#     comments = post.comments.filter(active=True)
+
+#     new_comment = None
+
+#     if request.method == 'POST':
+#         # A comment was posted
+#         comment_form = CommentForm(data=request.POST)
+#         if comment_form.is_valid():
+#             # Create Comment object but don't save to database yet
+#             new_comment = comment_form.save(commit=False)
+#             # Assign the current post to the comment
+#             new_comment.post = post
+#             # Save the comment to the database
+#             new_comment.save()
+#     else:
+#         comment_form = CommentForm()
+#     return render(request,
+#                   'blog/post/detail.html',
+#                   {'post': post,
+#                    'comments': comments,
+#                    'new_comment': new_comment,
+#                    'comment_form': comment_form})

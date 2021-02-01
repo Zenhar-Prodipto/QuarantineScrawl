@@ -10,6 +10,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -39,8 +40,8 @@ class AmigosPostListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         loggedInUser = Profile.objects.get(user=self.request.user)
-        ex = Post.objects.exclude(author=loggedInUser.user)
-        return ex.filter(author__in=loggedInUser.follow.all())
+        axedUser = Post.objects.exclude(author=loggedInUser.user)
+        return axedUser.filter(author__in=loggedInUser.follow.all())
 
 
 class UserPostListView(ListView):
@@ -74,10 +75,32 @@ class PostDetailedView(LoginRequiredMixin, DetailView):
         else:
             displayReactionButton = False
 
+        if post_id.author in loggedInProfile.follow.all():
+            displayCommentSection = True
+        else:
+            displayCommentSection = False
+
         context["displayReactionButton"] = displayReactionButton
+        context["displayCommentSection"] = displayCommentSection
         context["post"] = Post.objects.get(id=post_id.id)
         context["user"] = loggedInProfile.user
+        context["comments"] = Comment.objects.filter(post=post_id)
+        context["comment_form"] = CommentForm()
+        # new_comment = self.post(self.request.POST)
+        # context["new_comment"] = new_comment
         return context
+
+    # def post(self, request, *args, **kwargs):
+
+    #     comment_form = CommentForm(data=self.request.POST)
+    #     if comment_form.is_valid():
+    #         post_id = self.get_object()
+    #         loggedInProfile = Profile.objects.get(user=self.request.user)
+    #         post_id.commented.add(loggedInProfile.user)
+    #         new_comment = comment_form.save(commit=False)
+    #         new_comment.save()
+    #         return new_comment
+    #         # return render(request, {"new_comment": new_comment})
 
 
 def PostLikeView(request):
@@ -105,6 +128,19 @@ def PostLikeView(request):
         like.save()
         return redirect(request.META.get("HTTP_REFERER"))
     return redirect("blog:post-detail")
+
+
+def PostCommentView(request):
+    if request.method == "POST":
+        loggedInProfile = Profile.objects.get(user=request.user)
+        p_id = request.POST.get("post_id_from_form")
+        post_id = Post.objects.get(id=p_id)
+        u_comment = request.POST.get("user_comment_from_form")
+        post_id.commented.add(loggedInProfile.user)
+        new_comment = post_id.comment_set.create(
+            post=post_id.id, user=loggedInProfile.user, user_comment=u_comment
+        )
+        return redirect(request.META.get("HTTP_REFERER"))
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -193,8 +229,10 @@ def follow_unfollow_view(request):
 
         if viewProfile.user in loggedInProfile.follow.all():
             loggedInProfile.follow.remove(viewProfile.user)
+            viewProfile.follower.remove(loggedInProfile.user)
         else:
             loggedInProfile.follow.add(viewProfile.user)
+            viewProfile.follower.add(loggedInProfile.user)
 
         return redirect(request.META.get("HTTP_REFERER"))
 

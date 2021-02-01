@@ -1,5 +1,11 @@
 {% extends "blog/base.html" %}
 {% block title %}<title>{{post.author}}'s post</title>{% endblock %}
+{% load static %}
+
+{% block bootstrapClass %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/blog-css/post-details.css' %}">
+ {% endblock %}
+
 {% block content %}
   <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
@@ -22,6 +28,7 @@
 
   {% if displayReactionButton %}
 
+  <!-- LIKE FORM  -->
     <form action="{% url 'like-post' %}" method="POST">
       {% csrf_token %}
 
@@ -40,12 +47,61 @@
 
   <strong style="color: white;">Like: {{post.liked.all.count}}</strong>
   
+
+  {% if displayCommentSection %}
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ post.author }}</a>
-        <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
         <h3>Detailed comments</h3>
+
+        <strong><p style="color:black">Total {{comments.all.count}} comments from {{post.commented.all.count}} people</p></strong>
+        <!-- <h3 style="color:black">Total {{comments.all.count}} comments</h3> -->
+        <!-- <h3 style="color:black">Total {{comments.user}} comments</h3> -->
+
+        <!-- {% for c in new_comment%}
+        <h3 style="color:black"> {{c.user_comment}} </h3>
+        {% endfor %} -->
+        <div class="row">
+          <div class="col-6">
+            {% for c in comments%}
+            <div class="comment-section-wrap">
+              
+              <div class="eachComment">
+                <!-- <img class="rounded-circle article-img" src="{{ c.user.Profile.image.url}}" alt="user who commented"> -->
+                <p class="commented-by" style="color:black"> <strong>Commented By:</strong>: {{c.user}} </p>
+                <p class='comment' style="color:black"><strong>comment:</strong>  {{c.user_comment}} </p>
+              </div>
+
+            </div>
+            <hr style='color:black'>
+            {% endfor %}
+          </div>
+          <div class="col-4">
+
+        <!-- Comment Form  -->
+        <h2>Add a new comment</h2>
+     
+        <form action="{% url 'comment-post'  %}" method="POST">
+          {% csrf_token %}
+              <input type="hidden" name="post_id_from_form"  value="{{post.id}}" tabindex="1" >  
+              <textarea  name="user_comment_from_form" value="{{comments.user_comment}}" id="comment" rows="5" cols="50" tabindex="10"  required="required"></textarea>
+              <label for="comment" class="required">Add a comment</label>
+              <button type="submit">Post</button> 
+          </div>
+        </form> 
+      </div>
+    </div>
+
   </article>
 
+  
+  {%else%}
+  <h3 style="color:white">Total {{post.commented.all.count}} people commented</h3>
+  {% endif %}
+
 {% endblock content %}
+
+
+
+
+

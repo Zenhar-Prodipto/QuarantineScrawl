@@ -41,7 +41,7 @@ class Like(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    user_comment = models.TextField()
+    user_comment = models.TextField(default=None, blank=True)
 
     def __str__(self):
         return f"{self.user.username}'s Comment"
