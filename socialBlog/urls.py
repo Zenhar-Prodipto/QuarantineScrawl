@@ -27,6 +27,7 @@ urlpatterns = (
         path("", include("blog.urls")),
         path("register/", user_views.register, name="register"),
         path("profile/", user_views.profile, name="profile"),
+        path("profile/update", user_views.profileUpdateView, name="profile-update"),
         path(
             "login/",
             auth_views.LoginView.as_view(template_name="users/login.html"),

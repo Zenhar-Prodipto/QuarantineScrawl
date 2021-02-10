@@ -5,40 +5,103 @@
 {%load static %}
 
 {% block bootstrapClass %}
-<link rel="stylesheet" type="text/css" href="{% static 'blog/blog-css/profile.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'users/users-css/profile.css' %}">
  {% endblock %}
 
 
 {% load crispy_forms_tags %}
 
 {% block content %} 
-    
+
+
 <div class="profile-wrap">
     <div class="media profile-head">
-      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-      <div class="media-body">
-        <h2 class="account-heading">{{user.username}}</h2>
-        <p class="text-secondary">{{user.email}}</p>
-      </div>
+      <img class=" profile-profile-picture rounded-circle account-img" src="{{ user.profile.image.url }}">
+      <!-- <div class="media-body"> -->
+        <h2 class="profile-username account-heading">{{user.username}}</h2>
+      <!-- </div> -->
     </div>
-    <!-- FORM HERE -->
-    <div class="content-section">
-      <form method="POST", enctype="multipart/form-data">
-          {%csrf_token%}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">
-                  Profile Info
-              </legend>
+   
 
-              {{u_form | crispy}}
-              {{p_form | crispy}}
-          </fieldset>
-          <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Update</button>
-          </div>
-      </form>
+    <div class="content-section profile-row row">
 
-      <button><a href="{% url 'password-reset' %}">Update Password</a></button>
+      <div class=" profile-info col-6">
+       
+        <div class="profile-user-post-titles">
+
+          {% if not no_post %}
+
+          <ul>
+            <li class="profile-post-title-li"><a href="">You do not have any post yet</a></li>
+          </ul>
+
+          {% endif %}
+          <h5>{{user.username}} has {{current_user_posts.count}} posts</h5>
+          <h5>Top Posts</h5>
+          {% for t in top_likes%}
+
+          {% if one_post %}
+
+          <ul>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+          </ul>
+
+          {% elif two_posts %}
+
+          <ul>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+          </ul>
+
+          {% elif three_posts%}
+
+          <ul>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            <li class="profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+          </ul>
+
+          {% else %}
+
+          <h1>Hope it doesn't come down to this</h1>
+
+          {% endif %}
+
+          {% endfor %}
+        </div>
+      
+        <p class="profile-about-me"><strong>about {{user.username}}: </strong>bjfsjfjsjhf</p>
+     
+        <p class="profile-userEmail"><strong>Email: </strong>{{user.email}}</p>
+ 
+
+        </div>
+
+        <div class="follower-following-info col-6">
+         
+        
+          <h5>{{user.username}} follow {{follow_profiles.count}} people</h5>
+
+          <div class="profile-following-info-wrap">
+          {% for profile in follow_profiles %}
+          <a href="{% url 'user-posts' profile.user.username %}"><img class=" profile-follow-image rounded-circle account-img" src="{{profile.image.url}}" alt="followers image"></a>
+          {% endfor %}
+        </div>
+        
+        <div class="profile-follower-info-wrap">
+        <h5>{{user.username}} is followed by {{follower_profiles.count}} people</h5>
+        {% for profile in follower_profiles %}
+        <a href="{% url 'user-posts' profile.user.username %}"><img class=" profile-follower-image rounded-circle account-img" src="{{profile.image.url}}" alt="followers image"></a>
+
+        {% endfor %}
+      </div>
+        </div>
+
+      </div>
+
+        <button><a href="{% url 'profile-update' %}">Update Profile</a></button>
+      </div>
 {% endblock content %}
 
 

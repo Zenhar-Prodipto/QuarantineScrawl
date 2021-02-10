@@ -9,11 +9,10 @@
 <p style="color:white;">Do you follow {{n.user}}? : {{following}}</p>
 {% if following %}
 
-
 <form action="{% url 'follow-unfollow-view' %}" method="POST">
     {% csrf_token %}
 
-    <input type="hidden" name="profile_pk" value="{{n.pk}}">
+    <input type="hidden" name="view_profile_pk" value="{{n.pk}}">
     <button type="submit">Unfollow</button>
 </form>
 
@@ -21,7 +20,7 @@
 <form action="{% url 'follow-unfollow-view' %}" method="POST">
     {% csrf_token %}
 
-    <input type="hidden" name="profile_pk" value="{{n.pk}}">
+    <input type="hidden" name="view_profile_pk" value="{{n.pk}}">
     <button type="submit" >Follow</button>
 </form>
 

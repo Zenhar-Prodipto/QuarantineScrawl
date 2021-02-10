@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from .models import Profile
+from blog.models import Post, Like, Comment
 from django.contrib import messages
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
@@ -37,6 +39,53 @@ def register(request):
 
 @login_required
 def profile(request):
+    # loggedInUser = request.user
+    loggedInProfile = Profile.objects.get(user=request.user)
+    current_user_all_posts = Post.objects.filter(author=loggedInProfile.user)
+    top_likes_list = []
+
+    for post in current_user_all_posts:
+        top_likes_list.append(post.liked.all().count())
+
+    top = sorted(top_likes_list, reverse=True)[:3]
+
+    def top_post_count():
+        if len(top) == 0:
+            no_post = True
+            return no_post
+        elif len(top) == 1:
+            one_post = True
+            return one_post
+        elif len(top) == 2:
+            two_posts = True
+            return two_posts
+        elif len(top) == 3:
+            three_posts = True
+            return three_posts
+        else:
+            return more
+
+    context = {
+        "current_user": Profile.objects.filter(user=loggedInProfile.user),
+        "current_user_posts": Post.objects.filter(author=loggedInProfile.user),
+        "follow_profiles": Profile.objects.filter(
+            user__in=loggedInProfile.follow.all()
+        ),
+        "follower_profiles": Profile.objects.filter(
+            user__in=loggedInProfile.follower.all()
+        ),
+        "top_likes": current_user_all_posts.filter(liked__in=top),
+        "no_post": top_post_count(),
+        "one_post": top_post_count(),
+        "two_posts": top_post_count(),
+        "three_posts": top_post_count(),
+    }
+
+    return render(request, "users/profile.html", context)
+
+
+@login_required
+def profileUpdateView(request):
     if request.method == "POST":
 
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -48,13 +97,13 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f"successfully updated")
-            return redirect("profile")
+            return redirect("profile-update")
 
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {"u_form": u_form, "p_form": p_form}
-    return render(request, "users/profile.html", context)
+    return render(request, "users/profile_update.html", context)
 
 
 class UpdatePassword(LoginRequiredMixin, PasswordChangeView, PasswordChangeForm):

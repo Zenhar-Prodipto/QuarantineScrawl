@@ -29,7 +29,11 @@ class HomePostListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(ListView, self).get_context_data(**kwargs)
         loggedInUser = Profile.objects.get(user=self.request.user)
-        context["all_posts"] = Post.objects.exclude(author=loggedInUser.user)
+
+        axeLoggedInUser = Post.objects.exclude(author=loggedInUser.user)
+        context["all_posts"] = axeLoggedInUser.exclude(
+            author__in=loggedInUser.follow.all()
+        )
         return context
 
 
@@ -47,12 +51,35 @@ class AmigosPostListView(LoginRequiredMixin, ListView):
 class UserPostListView(ListView):
     model = Post
     template_name = "blog/user_posts.html"
-    context_object_name = "all_posts"
     paginate_by = 8
+    # slug_field = "username"
+    # slug_url_kwarg = "username"
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
         return Post.objects.filter(author=user).order_by("-date")
+
+    def get_object(self, **kwargs):
+
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = get_object_or_404(Profile, user=usernameFromURL)
+        return viewProfile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        viewProfile = self.get_object()
+        loggedInProfile = Profile.objects.get(user=self.request.user)
+
+        if viewProfile.user in loggedInProfile.follow.all():
+            following = True
+        else:
+            following = False
+
+        context["following"] = following
+        context["all_posts"] = self.get_queryset()
+        context["viewProfile"] = Profile.objects.filter(user=viewProfile.user)
+        context["comments"] = Comment.objects.filter(post=self.get_queryset())
+        return context
 
 
 class PostDetailedView(LoginRequiredMixin, DetailView):
@@ -224,7 +251,7 @@ class TestDetailed(DeleteView):
 def follow_unfollow_view(request):
     if request.method == "POST":
         loggedInProfile = Profile.objects.get(user=request.user)
-        pk = request.POST.get("profile_pk")
+        pk = request.POST.get("view_profile_pk")
         viewProfile = Profile.objects.get(pk=pk)
 
         if viewProfile.user in loggedInProfile.follow.all():
@@ -236,7 +263,7 @@ def follow_unfollow_view(request):
 
         return redirect(request.META.get("HTTP_REFERER"))
 
-    return redirect("blog:test-details")
+    # return redirect("blog:test-details")
 
 
 # def TestAmigos(request):
@@ -273,3 +300,14 @@ class TestAmigos(LoginRequiredMixin, ListView):
 #         context = super(ListView, self).get_context_data(**kwargs)
 #         context["posts"] = Post.objects.all()
 #         return context
+
+
+# class UserPostListView(ListView):
+#     model = Post
+#     template_name = "blog/user_posts.html"
+#     context_object_name = "all_posts"
+#     paginate_by = 8
+
+#     def get_queryset(self):
+#         user = get_object_or_404(User, username=self.kwargs.get("username"))
+#         return Post.objects.filter(author=user).order_by("-date")

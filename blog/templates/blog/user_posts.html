@@ -1,7 +1,30 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
-<h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2>
+
+
+<h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2><!-- <h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2> -->
+{% for vProfile in viewProfile %}
+{% if following %}
+<form action="{% url 'follow-unfollow-view' %}" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" name="view_profile_pk" value="{{vProfile.id}}">
+    <button type="submit">Unfollow</button>
+</form>
+
+{% else %}
+<form action="{% url 'follow-unfollow-view' %}" method="POST">
+    {% csrf_token %}
+
+    <input type="hidden" name="view_profile_pk" value="{{vProfile.id}}">
+    <button type="submit" >Follow</button>
+</form>
+
+{% endif %}
+{% endfor %}
+<br>
+  
     {% for post in all_posts %}
         <article class="media content-section"> 
 

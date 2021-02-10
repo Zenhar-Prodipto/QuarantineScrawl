@@ -29,12 +29,12 @@ urlpatterns = [
     path("post/like", views.PostLikeView, name="like-post"),
     path("post/comment", views.PostCommentView, name="comment-post"),
     path("about/", views.about, name="about"),
+    path("user/follow-user/", views.follow_unfollow_view, name="follow-unfollow-view"),
     # practice
     # path("testHome/", views.testView, name="test-view"),
     # path("testHome/", testView.as_view(), name="test-view"),
     path("test", Test.as_view(), name="test"),
     path("user/test/<int:pk>", TestDetailed.as_view(), name="test-details"),
-    path("user/fu/", views.follow_unfollow_view, name="follow-unfollow-view"),
     path("amigos/", TestAmigos.as_view(), name="test-amigos"),
 ]
 
@@ -72,3 +72,8 @@ urlpatterns = [
 #                    'comments': comments,
 #                    'new_comment': new_comment,
 #                    'comment_form': comment_form})
+
+
+# self.request.user
+# self.kwargs.get("username")
+# request.get("username")

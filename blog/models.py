@@ -29,6 +29,13 @@ class Post(models.Model):
     def total_likes(self):
         return self.liked.all().count()
 
+    @property
+    def top_likes(self):
+        # sorted(zip(score, name), reverse=True)[:3]
+        top_like_list = []
+        top_like_list.append(self.liked.all().count())
+        return sorted(top_like_list, reverse=True)[:3]
+
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
