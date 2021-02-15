@@ -81,21 +81,23 @@
         <div class="follower-following-info col-6">
          
         
-          <h5>{{user.username}} follow {{follow_profiles.count}} people</h5>
+          <h5>{{user.username}} follows {{follow_profiles.count}} people</h5>
 
           <div class="profile-following-info-wrap">
           {% for profile in follow_profiles %}
-          <a href="{% url 'user-posts' profile.user.username %}"><img class=" profile-follow-image rounded-circle account-img" src="{{profile.image.url}}" alt="followers image"></a>
+          <a href="{% url 'user-posts' profile.user.username %}"><img class=" profile-follow-image rounded-circle account-img" src="{{profile.image.url}}" alt="following image"></a>
           {% endfor %}
         </div>
+        <p><a href="{% url 'profile-following-list' user.username %}">Sell All</a><p>
         
-        <div class="profile-follower-info-wrap">
         <h5>{{user.username}} is followed by {{follower_profiles.count}} people</h5>
+        <div class="profile-follower-info-wrap">
         {% for profile in follower_profiles %}
         <a href="{% url 'user-posts' profile.user.username %}"><img class=" profile-follower-image rounded-circle account-img" src="{{profile.image.url}}" alt="followers image"></a>
-
         {% endfor %}
       </div>
+      
+        <p><a href="{% url 'profile-update' %}">Sell All</a><p>
         </div>
 
       </div>

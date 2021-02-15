@@ -12,6 +12,14 @@ from django.contrib.auth.views import (
     PasswordResetDoneView,
     PasswordResetForm,
 )
+
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 
 # All the messages
@@ -104,6 +112,33 @@ def profileUpdateView(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {"u_form": u_form, "p_form": p_form}
     return render(request, "users/profile_update.html", context)
+
+
+class followingListView(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = "users/profile-following-list.html"
+
+    def get_followers(self):
+        loggedInProfile = Profile.objects.get(user=self.request.user)
+        following_users = Profile.objects.filter(user__in=loggedInProfile.follow.all())
+        for profile in following_users:
+            if loggedInProfile.user in profile.follow.all():
+                return True
+            else:
+                return False
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loggedInProfile = Profile.objects.get(user=self.request.user)
+
+        context["loggedInProfile"] = loggedInProfile
+        context["following_Profiles"] = Profile.objects.filter(
+            user__in=loggedInProfile.follow.all()
+        )
+        context['following_Profile_Posts'] = Post.objects.filter(author__in = loggedInProfile.follow.all())
+  
+
+        return context
 
 
 class UpdatePassword(LoginRequiredMixin, PasswordChangeView, PasswordChangeForm):

@@ -1,0 +1,59 @@
+
+{% extends "blog/base.html" %}
+{% block title %}<title>Your Follower's List</title>{% endblock %}
+
+{%load static %}
+
+{% block bootstrapClass %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/users-css/following-list.css' %}">
+ {% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+
+    <div class="media following-list-head">
+      <img class=" following-list-profile-picture rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <h2 class="following-list-current_username account-heading">{{user.username}}</h2>
+    </div>
+
+    <div class="following-list-wrap">
+
+    <div class="following-list-header">
+      
+        <p class="following-list-count">you follow {{following_Profiles.count}} profiles</p>
+        <p class="following-list-header-text">Profiles you're following-</p>
+    </div>
+
+    {% for profile in following_Profiles %}
+    <div class="following-list-follower-list-card">
+        <img class="following-list-user-image rounded-circle account-img" src="{{profile.image.url}}" alt="user-profile-picture">
+        <p class="following-list-username">{{profile.user.username}}</p>
+
+    {% if user in profile.follow.all %}
+    <p class="following-list-following-status">you and {{profile.user.username}} are following each other</p>
+
+    {% else %}
+
+    <p class="following-list-following-status">you and {{profile.user.username}} do not follow each other</p>
+    {% endif %}
+    
+    <p class="following-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p>
+    
+    <form  class="following-list-unfollow-form" action="{% url 'follow-unfollow-view' %}" method="POST">
+        {% csrf_token %}
+    
+        <input type="hidden" name="view_profile_pk" value="{{profile.id}}">
+        <button class="following-list-unfollow-Button" type="submit">Unfollow</button>
+    </form>
+    </div>
+    {% endfor %}
+    </div>
+
+   
+{% endblock content %}
+
+

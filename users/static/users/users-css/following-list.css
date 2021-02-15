@@ -1,0 +1,78 @@
+.following-list-head {
+  background-color: white;
+  height: 40vh;
+}
+
+.following-list-profile-picture {
+  height: 80%;
+  width: 20%;
+  position: relative;
+  left: 40%;
+  top: 2%;
+}
+
+.following-list-header {
+  margin-left: 10px;
+  font-size: 24px;
+}
+
+.following-list-count {
+}
+
+.following-list-header-text {
+}
+
+.following-list-current_username {
+  font-size: 35px;
+  position: relative;
+  left: 25%;
+  top: 80%;
+}
+
+.following-list-wrap {
+  height: 100vh;
+  background-color: white;
+}
+
+.following-list-follower-list-card {
+  height: 20%;
+  /* border: 1px black solid; */
+  margin-bottom: 10px;
+}
+
+.following-list-user-image {
+  position: relative;
+  top: 15%;
+  left: 2%;
+  height: 80px;
+  width: 80px;
+}
+
+.following-list-username {
+  position: relative;
+  bottom: 60%;
+  left: 10%;
+  font-size: 24px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.following-list-following-status {
+  position: relative;
+  bottom: 70%;
+  left: 10%;
+  font-size: 16px;
+}
+
+.following-list-post-count {
+  position: relative;
+  bottom: 80%;
+  left: 10%;
+  font-size: 16px;
+}
+
+.following-list-unfollow-form {
+  position: relative;
+  left: 75%;
+  bottom: 130%;
+}
