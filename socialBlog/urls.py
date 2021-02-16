@@ -19,7 +19,13 @@ from users import views as user_views
 from django.contrib.auth import views as auth_views
 from django.conf.urls.static import static
 from django.conf import settings
-from users.views import UpdatePassword, UpdatePasswordDone, followingListView
+from users.views import (
+    UpdatePassword,
+    UpdatePasswordDone,
+    followingListView,
+    followerListView,
+    remove_friend_view,
+)
 
 urlpatterns = (
     [
@@ -29,9 +35,19 @@ urlpatterns = (
         path("profile/", user_views.profile, name="profile"),
         path("profile/update", user_views.profileUpdateView, name="profile-update"),
         path(
-            "profile/<str:username>/followers/",
+            "profile/<str:username>/following/",
             followingListView.as_view(),
             name="profile-following-list",
+        ),
+        path(
+            "profile/<str:username>/followers/",
+            followerListView.as_view(),
+            name="profile-follower-list",
+        ),
+        path(
+            "user/remove-friend/",
+            remove_friend_view,
+            name="remove-friend-view",
         ),
         path(
             "login/",

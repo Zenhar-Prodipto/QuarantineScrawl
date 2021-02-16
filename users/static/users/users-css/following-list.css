@@ -22,20 +22,20 @@
 .following-list-header-text {
 }
 
-.following-list-current_username {
+.following-list-current-username {
   font-size: 35px;
   position: relative;
-  left: 25%;
-  top: 80%;
+  top: 84%;
+  left: 22%;
 }
 
 .following-list-wrap {
-  height: 100vh;
+  height: 100%;
   background-color: white;
 }
 
 .following-list-follower-list-card {
-  height: 20%;
+  height: 5%;
   /* border: 1px black solid; */
   margin-bottom: 10px;
 }
@@ -46,22 +46,37 @@
   left: 2%;
   height: 80px;
   width: 80px;
+  -webkit-transform: translate(1%, -370%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(1%, 10%);
 }
 
 .following-list-username {
   position: relative;
-  bottom: 60%;
-  left: 10%;
+  top: 89%;
+  left: 20%;
   font-size: 24px;
   text-decoration: underline;
   font-weight: bold;
+  -webkit-transform: translate(-9%, -220%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-9%, -220%);
 }
 
 .following-list-following-status {
   position: relative;
-  bottom: 70%;
+  bottom: 80%;
   left: 10%;
   font-size: 16px;
+  -webkit-transform: translate(1%, -370%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(1%, -370%);
 }
 
 .following-list-post-count {
@@ -69,10 +84,31 @@
   bottom: 80%;
   left: 10%;
   font-size: 16px;
+  -webkit-transform: translate(1%, -370%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(1%, -440%);
 }
 
 .following-list-unfollow-form {
   position: relative;
   left: 75%;
+  bottom: 200%;
+  -webkit-transform: translate(1%, -370%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(1%, -640%);
+}
+
+.following-list-remove-friend-form {
+  position: relative;
+  left: 60%;
   bottom: 130%;
+  -webkit-transform: translate(1%, -370%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(1%, -640%);
 }

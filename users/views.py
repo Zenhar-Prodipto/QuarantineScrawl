@@ -118,14 +118,14 @@ class followingListView(LoginRequiredMixin, ListView):
     model = Profile
     template_name = "users/profile-following-list.html"
 
-    def get_followers(self):
-        loggedInProfile = Profile.objects.get(user=self.request.user)
-        following_users = Profile.objects.filter(user__in=loggedInProfile.follow.all())
-        for profile in following_users:
-            if loggedInProfile.user in profile.follow.all():
-                return True
-            else:
-                return False
+    # def get_followers(self):
+    #     loggedInProfile = Profile.objects.get(user=self.request.user)
+    #     following_users = Profile.objects.filter(user__in=loggedInProfile.follow.all())
+    #     for profile in following_users:
+    #         if loggedInProfile.user in profile.follow.all():
+    #             return True
+    #         else:
+    #             return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -135,10 +135,47 @@ class followingListView(LoginRequiredMixin, ListView):
         context["following_Profiles"] = Profile.objects.filter(
             user__in=loggedInProfile.follow.all()
         )
-        context['following_Profile_Posts'] = Post.objects.filter(author__in = loggedInProfile.follow.all())
-  
+        context["following_Profile_Posts"] = Post.objects.filter(
+            author__in=loggedInProfile.follow.all()
+        )
 
         return context
+
+
+class followerListView(LoginRequiredMixin, ListView):
+    model = Profile
+    template_name = "users/profile_follower_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loggedInProfile = Profile.objects.get(user=self.request.user)
+
+        context["loggedInProfile"] = loggedInProfile.user
+        context["follower_Profiles"] = Profile.objects.filter(
+            user__in=loggedInProfile.follower.all()
+        )
+        context["following_Profiles"] = Profile.objects.filter(
+            user__in=loggedInProfile.follow.all()
+        )
+        context["follower_Profile_Posts"] = Post.objects.filter(
+            author__in=loggedInProfile.follower.all()
+        )
+
+        return context
+
+
+@login_required
+def remove_friend_view(request):
+    if request.method == "POST":
+        loggedInProfile = Profile.objects.get(user=request.user)
+        pk = request.POST.get("view_profile_pk")
+        viewProfile = Profile.objects.get(pk=pk)
+
+        if viewProfile.user in loggedInProfile.follower.all():
+            loggedInProfile.follower.remove(viewProfile.user)
+            viewProfile.follow.remove(loggedInProfile.user)
+
+        return redirect(request.META.get("HTTP_REFERER"))
 
 
 class UpdatePassword(LoginRequiredMixin, PasswordChangeView, PasswordChangeForm):
