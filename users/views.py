@@ -116,7 +116,7 @@ def profileUpdateView(request):
 
 class followingListView(LoginRequiredMixin, ListView):
     model = Profile
-    template_name = "users/profile-following-list.html"
+    template_name = "users/profile_following_list2.html"
 
     # def get_followers(self):
     #     loggedInProfile = Profile.objects.get(user=self.request.user)
