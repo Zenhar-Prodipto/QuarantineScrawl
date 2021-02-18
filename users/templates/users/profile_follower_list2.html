@@ -1,0 +1,73 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>Your Follower's List</title>{% endblock %}
+
+{%load static %}
+{% block bootstrapClass %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/users-css/following-list-2.css' %}">
+ {% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+    <div class="media follower-list-head">
+      <img class=" follower-list-profile-picture rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <h2 class="follower-list-currentUser-username account-heading">{{user.username}}</h2>
+    </div>
+    
+    <div class="follower-list-wrap">
+ 
+      <div class="follower-list-header">
+        
+          <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profiles</p>
+          <p class="follower-list-header-text">Profiles that follow you-</p>
+      </div>
+  
+      {% for profile in follower_Profiles %}
+      <div class="follower-list-card">
+          <img class="follower-list-card-profile-picture rounded-circle account-img" src="{{profile.image.url}}" alt="user-profile-picture">
+
+          <div class="follower-list-card-info">
+          <p class="follower-list-card-username">{{profile.user.username}}</p>
+  
+      {% if user in profile.follower.all %}
+      <p class="follower-list-following-status">you and {{profile.user.username}} are following each other</p>
+  
+      {% else %}
+  
+      <p class="follower-list-following-status">You do not follow {{profile.user.username}} </p>
+      {% endif %}
+      
+      <p class="follower-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p>
+      
+    </div>
+  
+      <form  class="follower-list-remove-friend-form" action="{% url 'remove-friend-view' %}" method="POST">
+          {% csrf_token %}
+      
+          <input type="hidden" name="view_profile_pk" value="{{profile.id}}">
+          <button class="follower-list-unfollow-Button" type="submit">Remove</button>
+      </form>
+  
+      {% if user in profile.follower.all %}
+      <form  class="follower-list-unfollow-form" action="{% url 'follow-unfollow-view' %}" method="POST">
+          {% csrf_token %}
+      
+          <input type="hidden" name="view_profile_pk" value="{{profile.id}}">
+          <button class="follower-list-unfollow-Button" type="submit">Unfollow</button>
+      </form>
+  
+      {% else %}
+  
+      <form  class="follower-list-follow-form" action="{% url 'follow-unfollow-view' %}" method="POST">
+          {% csrf_token %}
+      
+          <input type="hidden" name="view_profile_pk" value="{{profile.id}}">
+          <button class="follower-list-unfollow-Button" type="submit">follow Back</button>
+      </form>
+      {% endif %}
+      </div>
+      {% endfor %}
+      </div>
+    {% endblock %}

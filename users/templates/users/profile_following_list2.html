@@ -2,9 +2,8 @@
 {% block title %}<title>Your Follower's List</title>{% endblock %}
 
 {%load static %}
-
 {% block bootstrapClass %}
-<link rel="stylesheet" type="text/css" href="{% static 'users/users-css/following-list-2.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'users/users-css/following-list.css' %}">
  {% endblock %}
 
 
@@ -22,7 +21,7 @@
             <p class="following-list-count">you follow {{following_Profiles.count}} profiles</p>
             <p class="following-list-header-text">Profiles you're following-</p>
         </div>
-
+ 
         {% for profile in following_Profiles %}
         <div class="following-list-card">
 

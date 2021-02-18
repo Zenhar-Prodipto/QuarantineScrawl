@@ -1,32 +1,26 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 .following-list-head {
+  height: 42vh;
   background-color: white;
-  height: 40vh;
 }
 
 .following-list-profile-picture {
   height: 80%;
   width: 20%;
   position: relative;
+  top: 2.5%;
   left: 40%;
-  top: 2%;
 }
 
-.following-list-header {
-  margin-left: 10px;
-  font-size: 24px;
-}
-
-.following-list-count {
-}
-
-.following-list-header-text {
-}
-
-.following-list-current-username {
-  font-size: 35px;
+.following-list-currentUser-username {
   position: relative;
-  top: 84%;
-  left: 22%;
+  top: 83%;
+  left: 23%;
+  font-size: 35px;
 }
 
 .following-list-wrap {
@@ -34,81 +28,92 @@
   background-color: white;
 }
 
-.following-list-follower-list-card {
-  height: 5%;
+.following-list-header {
+  height: 15%;
   /* border: 1px black solid; */
-  margin-bottom: 10px;
+  padding-left: 1%;
 }
 
-.following-list-user-image {
-  position: relative;
-  top: 15%;
-  left: 2%;
-  height: 80px;
-  width: 80px;
-  -webkit-transform: translate(1%, -370%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(1%, 10%);
-}
-
-.following-list-username {
-  position: relative;
-  top: 89%;
-  left: 20%;
-  font-size: 24px;
-  text-decoration: underline;
+.following-list-count {
+  font-size: 20px;
   font-weight: bold;
-  -webkit-transform: translate(-9%, -220%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-9%, -220%);
+}
+
+.following-list-header-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.following-list-card {
+  height: 25%;
+  background-color: white;
+  /* border: 1px black solid; */
+}
+
+.following-list-card-profile-picture {
+  display: inline-block;
+  position: relative;
+  -webkit-transform: translate(13%, 25%);
+  -moz-transform: translate(13%, 25%);
+  -ms-transform: translate(13%, 25%);
+  -o-transform: translate(13%, 25%);
+  transform: translate(13%, 25%);
+  height: 7%;
+  width: 7%;
+}
+
+.following-list-card-info {
+  position: relative;
+  /* border: 1px solid black; */
+  left: 10%;
+  transform: translate(-1%, -70%);
+}
+
+.following-list-card-username {
+  /* position: relative;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(9%, -250%); */
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .following-list-following-status {
-  position: relative;
-  bottom: 80%;
-  left: 10%;
+  /* display: inline-block; */
+  /* position: relative;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(43%, -400%); */
   font-size: 16px;
-  -webkit-transform: translate(1%, -370%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(1%, -370%);
+  display: inline-block;
+  position: relative;
+  transform: translate(0%, -70%);
 }
 
 .following-list-post-count {
+  /* display: inline-block;
   position: relative;
-  bottom: 80%;
-  left: 10%;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(-86%, -300%); */
   font-size: 16px;
-  -webkit-transform: translate(1%, -370%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(1%, -440%);
+  display: inline-block;
+  position: relative;
+  transform: translate(-150%, 0%);
+  transform: translate(0%, -70%);
+}
+.following-list-some-text {
+  display: inline-block;
+  transform: translate(2%, -200%);
 }
 
 .following-list-unfollow-form {
-  position: relative;
-  left: 75%;
-  bottom: 200%;
-  -webkit-transform: translate(1%, -370%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(1%, -640%);
-}
-
-.following-list-remove-friend-form {
-  position: relative;
-  left: 60%;
-  bottom: 130%;
-  -webkit-transform: translate(1%, -370%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(1%, -640%);
+  display: inline-block;
+  transform: translate(800%, -400%);
 }

@@ -116,7 +116,7 @@ def profileUpdateView(request):
 
 class followingListView(LoginRequiredMixin, ListView):
     model = Profile
-    template_name = "users/profile_following_list2.html"
+    template_name = "users/profile_following_list.html"
 
     # def get_followers(self):
     #     loggedInProfile = Profile.objects.get(user=self.request.user)
@@ -144,7 +144,7 @@ class followingListView(LoginRequiredMixin, ListView):
 
 class followerListView(LoginRequiredMixin, ListView):
     model = Profile
-    template_name = "users/profile_follower_list.html"
+    template_name = "users/profile_follower_list2.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
