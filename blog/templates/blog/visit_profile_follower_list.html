@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+{% block title %}<title>Your Follower's List</title>{% endblock %}
+
+{%load static %}
+{% block bootstrapClass %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/blog-css/visit-profile-follower-list.css' %}">
+ {% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+    <div class="media visit-profile-follower-list-head">
+      <img class=" visit-profile-follower-list-profile-picture rounded-circle account-img" src="{{ viewProfile.image.url }}">
+        <h2 class="visit-profile-follower-list-currentUser-username account-heading">{{viewProfile.user}}</h2>
+    </div>
+
+    <div class="visit-profile-follower-list-wrap">
+        <div class="visit-profile-follower-list-header">
+            <p class="visit-profile-follower-list-count">{{viewProfile.user}} follows {{following_Profiles.count}} profiles</p>
+            <p class="visit-profile-follower-list-header-text">Profiles {{viewProfile.user}} is following-</p>
+        </div>
+
+        {% for profile in follower_Profiles %}
+        <div class="visit-profile-follower-list-card">
+
+            <img src="{{profile.image.url}}" alt="user-profile-picture" class="visit-profile-follower-list-card-profile-picture rounded-circle account-img">
+
+            <div class="visit-profile-follower-list-card-info">
+                <p class="visit-profile-follower-list-card-username">{{profile.user.username}}</p>
+
+            
+            <p class="visit-profile-follower-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p>
+            </div>
+            
+            <p class="visit-profile-follower-list-some-text">fkjdshfjhfjhjhfjhfashfjfhjdhfjdhfjkhfjhjkhfjdhjfh</p>
+
+        </div>
+
+
+        {% endfor %}
+    </div>
+
+    {% endblock %}

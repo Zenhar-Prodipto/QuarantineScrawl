@@ -68,7 +68,7 @@
             <a href="{% url 'user-posts' profile.profile.user %}"><img class=" visit-profile-follow-image rounded-circle account-img" src="{{profile.profile.image.url}}" alt="following image"></a>
             {% endfor %}
           </div>
-          <p><a href="{% url 'profile-following-list' user.username %}">Sell All</a><p>
+          <p><a href="{% url 'visit-profile-following-list' viewProfile.user %}">Sell All</a><p>
           
           <h5>{{viewProfile.user}} is followed by {{viewProfile.follower.all.count}} people</h5>
           <div class="visit-profile-follower-info-wrap">
@@ -77,7 +77,7 @@
           {% endfor %}
         </div>
         
-          <p><a href="{% url 'profile-follower-list' user.username %}">Sell All</a><p>
+          <p><a href="{% url 'visit-profile-follower-list' viewProfile.user %}">Sell All</a><p>
           </div>
           </div>
 

@@ -219,7 +219,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class ProfileVisitView(LoginRequiredMixin, ListView):
 
-    template_name = "blog/profile_visit.html"
+    template_name = "blog/visit_profile.html"
     model = Profile
 
     def get_object(self, **kwargs):  # getting the pk from the url
@@ -276,6 +276,46 @@ class ProfileVisitView(LoginRequiredMixin, ListView):
         )
         context["follower_profiles"]: Profile.objects.filter(
             user__in=viewProfile.follower.all()
+        )
+
+        return context
+
+
+class VisitProfilefollowingListView(LoginRequiredMixin, ListView):
+    template_name = "blog/visit_profile_following_list.html"
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+
+        context["viewProfile"] = viewProfile
+        context["following_Profiles"] = Profile.objects.filter(
+            user__in=viewProfile.follow.all()
+        )
+        context["following_Profile_Posts"] = Post.objects.filter(
+            author__in=viewProfile.follow.all()
+        )
+
+        return context
+
+
+class VisitProfilefollowerListView(LoginRequiredMixin, ListView):
+    template_name = "blog/visit_profile_follower_list.html"
+    model = Profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+
+        context["viewProfile"] = viewProfile
+        context["follower_Profiles"] = Profile.objects.filter(
+            user__in=viewProfile.follower.all()
+        )
+        context["follower_Profile_Posts"] = Post.objects.filter(
+            author__in=viewProfile.follower.all()
         )
 
         return context
