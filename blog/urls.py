@@ -13,6 +13,7 @@ from .views import (
     TestDetailed,
     follow_unfollow_view,
     TestAmigos,
+    ProfileVisitView,
     # testView,
 )
 from . import views
@@ -22,6 +23,9 @@ urlpatterns = [
     path("", HomePostListView.as_view(), name="home"),
     path("homewithamigos/", AmigosPostListView.as_view(), name="amigos-home"),
     path("user/<str:username>", UserPostListView.as_view(), name="user-posts"),
+    path(
+        "user/profile/<str:username>", ProfileVisitView.as_view(), name="profile-visit"
+    ),
     path("post/<int:pk>/", PostDetailedView.as_view(), name="post-detail"),
     path("post/new/", PostCreateView.as_view(), name="post-create"),
     path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),

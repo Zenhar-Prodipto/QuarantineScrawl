@@ -9,6 +9,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
 
@@ -52,8 +53,6 @@ class UserPostListView(ListView):
     model = Post
     template_name = "blog/user_posts.html"
     paginate_by = 8
-    # slug_field = "username"
-    # slug_url_kwarg = "username"
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
@@ -75,10 +74,19 @@ class UserPostListView(ListView):
         else:
             following = False
 
+        if (
+            viewProfile.user in loggedInProfile.follow.all()
+            and loggedInProfile.user in viewProfile.follow.all()
+        ):
+            bothFollowing = True
+        else:
+            bothFollowing = False
+
         context["following"] = following
         context["all_posts"] = self.get_queryset()
         context["viewProfile"] = Profile.objects.filter(user=viewProfile.user)
         context["comments"] = Comment.objects.filter(post=self.get_queryset())
+        context["bothFollowing"] = bothFollowing
         return context
 
 
@@ -204,6 +212,116 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+class ProfileVisitView(LoginRequiredMixin, ListView):
+
+    template_name = "blog/profile_visit.html"
+    model = Profile
+
+    def get_object(self, **kwargs):  # getting the pk from the url
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        return usernameFromURL
+
+    def top_liked_posts_list(self):
+        viewProfile = get_object_or_404(Profile, user=self.get_object())
+        viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+
+        top_likes_list = []
+
+        for post in viewProfilePosts:
+            top_likes_list.append(post.liked.all().count())
+
+        top = sorted(top_likes_list, reverse=True)
+        return top
+
+    def number_of_post_count(self):
+        top = self.top_liked_posts()
+        if len(top) == 0:
+            no_post = True
+            return no_post
+        elif len(top) == 1:
+            one_post = True
+            return one_post
+        elif len(top) == 2:
+            two_posts = True
+            return two_posts
+        elif len(top) == 3:
+            three_posts = True
+            return three_posts
+        else:
+            return more
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # viewProfile = get_object_or_404(Profile, user=self.get_object())
+        viewProfile = Profile.objects.get(user=self.get_object())
+        viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+
+        context["top"] = self.top_liked_posts_list()
+        context["viewProfile"] = viewProfile
+        context["viewProfilePosts"] = viewProfilePosts
+        context["top_likes"]: viewProfilePosts.objects.filter(
+            liked__in=self.top_liked_posts_list()
+        )
+        context["no_post"]: self.number_of_post_count()
+        context["one_post"]: self.number_of_post_count()
+        context["two_posts"]: self.number_of_post_count()
+        context["three_posts"]: self.number_of_post_count()
+        context["follow_profiles"]: Profile.objects.filter(
+            user__in=viewProfile.follow.all()
+        )
+        context["follower_profiles"]: Profile.objects.filter(
+            user__in=viewProfile.follower.all()
+        )
+
+        return context
+
+
+@login_required
+def profileVisitView(request, username):
+    usernameFromURL = get_object_or_404(User, username=request.GET.get("username"))
+    # viewProfile = get_object_or_404(Profile, user=usernameFromURL)
+    # viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+    # top_likes_list = []
+
+    # for post in viewProfilePosts:
+    #     top_likes_list.append(post.liked.all().count())
+
+    # top = sorted(top_likes_list, reverse=True)[:3]
+
+    # def top_post_count():
+    #     if len(top) == 0:
+    #         no_post = True
+    #         return no_post
+    #     elif len(top) == 1:
+    #         one_post = True
+    #         return one_post
+    #     elif len(top) == 2:
+    #         two_posts = True
+    #         return two_posts
+    #     elif len(top) == 3:
+    #         three_posts = True
+    #         return three_posts
+    #     else:
+    #         return more
+
+    context = {"test": Profile.objects.filter(user=request.user)}
+    # context = {
+    #     "viewProfile": Profile.objects.get(user=viewProfile.user),
+    #     "view_profile_posts": Post.objects.filter(author=viewProfile.user),
+    #     "follow_profiles": Profile.objects.filter(user__in=viewProfile.follow.all()),
+    #     "follower_profiles": Profile.objects.filter(
+    #         user__in=viewProfile.follower.all()
+    #     ),
+    #     "top_likes": viewProfilePosts.filter(liked__in=top),
+    #     "no_post": top_post_count(),
+    #     "one_post": top_post_count(),
+    #     "two_posts": top_post_count(),
+    #     "three_posts": top_post_count(),
+    # }
+
+    return render(request, "users/profile_visit.html", context)
 
 
 def about(request):

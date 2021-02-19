@@ -23,6 +23,13 @@
 
 {% endif %}
 {% endfor %}
+
+{% if bothFollowing %}
+ 
+<div class="profile-button-wrap">
+  <button><a href="{% url 'profile-visit' view.kwargs.username %}">Check out {{view.kwargs.username}}'s profile</a></button>
+</div>
+{% endif %}
 <br>
   
     {% for post in all_posts %}
