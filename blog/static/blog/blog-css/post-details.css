@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.post-detail-comment-section-wrap {
+}
+
+.post-detail-each-comment {
+  height: 25vh;
+  /* border: black 1px solid; */
+  position: relative;
+}
+
+.post-detail-profile-picture {
+  position: absolute;
+  top: 5%;
+  left: 1%;
+}
+
+.post-detail-commented-by {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  text-decoration: underline;
+  color: black;
+  font-size: 20px;
+}
+
+.post-detail-comment {
+  position: absolute;
+  top: 50%;
+}

@@ -52,28 +52,19 @@
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
-        <h3>Detailed comments</h3>
+        <h3>comments</h3>
 
         <strong><p style="color:black">Total {{comments.all.count}} comments from {{post.commented.all.count}} people</p></strong>
-        <!-- <h3 style="color:black">Total {{comments.all.count}} comments</h3> -->
-        <!-- <h3 style="color:black">Total {{comments.user}} comments</h3> -->
-
-        <!-- {% for c in new_comment%}
-        <h3 style="color:black"> {{c.user_comment}} </h3>
-        {% endfor %} -->
         <div class="row">
           <div class="col-6">
-            {% for c in comments%}
-            <div class="comment-section-wrap">
+            {% for comment in comments%}
+            <div class="post-detail-comment-section-wrap">
               
-              <div class="eachComment">
-                <!-- <img class="rounded-circle article-img" src="{{ c.user.Profile.image.url}}" alt="user who commented"> -->
-                <p class="commented-by" style="color:black"> <strong>Commented By:</strong>: {{c.user}} </p>
-                <p class='comment' style="color:black"><strong>comment:</strong>  {{c.user_comment}} </p>
-                <img class="rounded-circle article-img" src="{{ c.user.profile.image.url }}">
-
+              <div class="post-detail-each-comment">
+                <img class="post-detail-profile-picture rounded-circle article-img" src="{{ comment.user.profile.image.url }}">
+               <a href="{% url 'user-posts' comment.user %}"><p class="post-detail-commented-by" > <strong>{{comment.user}}</strong>:  </p></a> 
+                <p class='post-detail-comment' ><strong>comment:</strong>  {{comment.user_comment}} </p>
               </div>
-
             </div>
             <hr style='color:black'>
             {% endfor %}

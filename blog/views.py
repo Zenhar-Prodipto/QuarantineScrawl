@@ -110,7 +110,10 @@ class PostDetailedView(LoginRequiredMixin, DetailView):
         else:
             displayReactionButton = False
 
-        if post_id.author in loggedInProfile.follow.all():
+        if (
+            post_id.author in loggedInProfile.follow.all()
+            or post_id.author == loggedInProfile.user
+        ):
             displayCommentSection = True
         else:
             displayCommentSection = False
@@ -276,52 +279,6 @@ class ProfileVisitView(LoginRequiredMixin, ListView):
         )
 
         return context
-
-
-@login_required
-def profileVisitView(request, username):
-    usernameFromURL = get_object_or_404(User, username=request.GET.get("username"))
-    # viewProfile = get_object_or_404(Profile, user=usernameFromURL)
-    # viewProfilePosts = Post.objects.filter(author=viewProfile.user)
-    # top_likes_list = []
-
-    # for post in viewProfilePosts:
-    #     top_likes_list.append(post.liked.all().count())
-
-    # top = sorted(top_likes_list, reverse=True)[:3]
-
-    # def top_post_count():
-    #     if len(top) == 0:
-    #         no_post = True
-    #         return no_post
-    #     elif len(top) == 1:
-    #         one_post = True
-    #         return one_post
-    #     elif len(top) == 2:
-    #         two_posts = True
-    #         return two_posts
-    #     elif len(top) == 3:
-    #         three_posts = True
-    #         return three_posts
-    #     else:
-    #         return more
-
-    context = {"test": Profile.objects.filter(user=request.user)}
-    # context = {
-    #     "viewProfile": Profile.objects.get(user=viewProfile.user),
-    #     "view_profile_posts": Post.objects.filter(author=viewProfile.user),
-    #     "follow_profiles": Profile.objects.filter(user__in=viewProfile.follow.all()),
-    #     "follower_profiles": Profile.objects.filter(
-    #         user__in=viewProfile.follower.all()
-    #     ),
-    #     "top_likes": viewProfilePosts.filter(liked__in=top),
-    #     "no_post": top_post_count(),
-    #     "one_post": top_post_count(),
-    #     "two_posts": top_post_count(),
-    #     "three_posts": top_post_count(),
-    # }
-
-    return render(request, "users/profile_visit.html", context)
 
 
 def about(request):
