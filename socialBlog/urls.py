@@ -31,6 +31,7 @@ urlpatterns = (
     [
         path("admin/", admin.site.urls),
         path("", include("blog.urls")),
+        path("ckeditor", include("ckeditor_uploader.urls")),
         path("register/", user_views.register, name="register"),
         path("profile/", user_views.profile, name="profile"),
         path("profile/update", user_views.profileUpdateView, name="profile-update"),

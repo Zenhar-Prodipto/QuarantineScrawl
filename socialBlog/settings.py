@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "blog",
     "users.apps.UsersConfig",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,13 @@ LOGIN_URL = (
 )
 # And then login korle landing page hobe profile, not home
 
+# CK EDITOR
+
+CKEDITOR_UPLOAD_PATH = "blog_post_pics"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+# CKEDITOR_UPLOAD_PATH = "blog/blog_post_images"
+
+# email password
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587

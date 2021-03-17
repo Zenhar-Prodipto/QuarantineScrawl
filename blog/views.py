@@ -69,6 +69,11 @@ class UserPostListView(ListView):
         viewProfile = self.get_object()
         loggedInProfile = Profile.objects.get(user=self.request.user)
 
+        if viewProfile.user == self.request.user:
+            current_user = True
+        else:
+            current_user = False
+
         if viewProfile.user in loggedInProfile.follow.all():
             following = True
         else:
@@ -87,6 +92,8 @@ class UserPostListView(ListView):
         context["viewProfile"] = Profile.objects.filter(user=viewProfile.user)
         context["comments"] = Comment.objects.filter(post=self.get_queryset())
         context["bothFollowing"] = bothFollowing
+        context["current_user"] = current_user
+
         return context
 
 
