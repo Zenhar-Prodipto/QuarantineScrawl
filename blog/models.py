@@ -15,11 +15,9 @@ class Post(models.Model):
     content = RichTextUploadingField()
     date = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    liked = models.ManyToManyField(
-        User, related_name="unliked", default=None, blank=True
-    )
+    liked = models.ManyToManyField(User, related_name="liked", default=None, blank=True)
     commented = models.ManyToManyField(
-        User, related_name="uncommented", default=None, blank=True
+        User, related_name="commented", default=None, blank=True
     )
 
     def __str__(self):

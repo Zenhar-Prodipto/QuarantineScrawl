@@ -65,6 +65,12 @@
                <a href="{% url 'user-posts' comment.user %}"><p class="post-detail-commented-by" > <strong>{{comment.user}}</strong>:  </p></a> 
                 <p class='post-detail-comment' ><strong>comment:</strong>  {{comment.user_comment}} </p>
               </div>
+              {% if comment.user == request.user %}
+              <form action="{% url 'remove-comment' %}" method="POST">
+                {% csrf_token %}
+                <button name='comment_id' value={{comment.id}} type="submit">Remove</button>
+              </form>
+              {% endif %}
             </div>
             <hr style='color:black'>
             {% endfor %}

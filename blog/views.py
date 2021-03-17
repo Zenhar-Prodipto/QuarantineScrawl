@@ -130,9 +130,8 @@ class PostDetailedView(LoginRequiredMixin, DetailView):
         context["post"] = Post.objects.get(id=post_id.id)
         context["user"] = loggedInProfile.user
         context["comments"] = Comment.objects.filter(post=post_id)
+        # context["displayCommentRemoveForm"] = displayCommentRemoveForm
         context["comment_form"] = CommentForm()
-        # new_comment = self.post(self.request.POST)
-        # context["new_comment"] = new_comment
         return context
 
     # def post(self, request, *args, **kwargs):
@@ -185,6 +184,13 @@ def PostCommentView(request):
         new_comment = post_id.comment_set.create(
             post=post_id.id, user=loggedInProfile.user, user_comment=u_comment
         )
+        return redirect(request.META.get("HTTP_REFERER"))
+
+
+def CommentRemoveView(request):
+    if request.method == "POST":
+        comment_id = request.POST.get("comment_id")
+        Comment.objects.filter(id=comment_id).delete()
         return redirect(request.META.get("HTTP_REFERER"))
 
 
