@@ -41,12 +41,17 @@ class HomePostListView(LoginRequiredMixin, ListView):
 class AmigosPostListView(LoginRequiredMixin, ListView):
 
     template_name = "blog/followspost.html"
-    context_object_name = "all_posts"
 
     def get_queryset(self):
         loggedInUser = Profile.objects.get(user=self.request.user)
         axedUser = Post.objects.exclude(author=loggedInUser.user)
         return axedUser.filter(author__in=loggedInUser.follow.all())
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["all_posts"] = self.get_queryset()
+        context["all_comments"] = Comment.objects.all().count()
+        return context
 
 
 class UserPostListView(ListView):

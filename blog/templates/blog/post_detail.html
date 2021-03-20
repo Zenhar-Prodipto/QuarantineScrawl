@@ -35,28 +35,33 @@
       <input type="hidden" name="post_id_from_form" value="{{post.id}}">
       {% if user not in post.liked.all %}
 
-      <button type="submit">Like</button>
+    
+      <button type="submit" class="btn btn-primary mb-2">Like</button>
 
       {% else %}
-      <button type="submit">Unlike</button>
+      <button type="submit" class="btn btn-success mb-2">Unlike</button>
 
       {% endif %}
     </form>
-
   {% endif %}
 
+  {% if post.liked.all.count < 2 %}
+
   <strong style="color: white;">Like: {{post.liked.all.count}}</strong>
-  
+{% else %}  
+<strong style="color: white;">Likes: {{post.liked.all.count}}</strong>
+{% endif %}
 
   {% if displayCommentSection %}
   <article class="media content-section">
     <div class="media-body">
       <div class="article-metadata">
+        <div class="row">
+          <div class="col-6">
         <h3>comments</h3>
 
         <strong><p style="color:black">Total {{comments.all.count}} comments from {{post.commented.all.count}} people</p></strong>
-        <div class="row">
-          <div class="col-6">
+
             {% for comment in comments%}
             <div class="post-detail-comment-section-wrap">
               
@@ -68,13 +73,14 @@
               {% if comment.user == request.user %}
               <form action="{% url 'remove-comment' %}" method="POST">
                 {% csrf_token %}
-                <button name='comment_id' value={{comment.id}} type="submit">Remove</button>
+                <button class="btn btn-outline-danger"  name='comment_id' value={{comment.id}} type="submit">Remove</button>
               </form>
               {% endif %}
             </div>
             <hr style='color:black'>
             {% endfor %}
           </div>
+
           <div class="col-4">
 
         <!-- Comment Form  -->
@@ -85,7 +91,7 @@
               <input type="hidden" name="post_id_from_form"  value="{{post.id}}" tabindex="1" >  
               <textarea  name="user_comment_from_form" value="{{comments.user_comment}}" id="comment" rows="5" cols="50" tabindex="10"  required="required"></textarea>
               <label for="comment" class="required">Add a comment</label>
-              <button type="submit">Post</button> 
+              <button class=" btn btn-outline-primary" type="submit">Post</button> 
           </div>
         </form> 
       </div>
