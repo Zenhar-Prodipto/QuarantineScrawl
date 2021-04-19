@@ -1,5 +1,7 @@
 {% extends "blog/base.html" %}
 {% block content %}
+
+
     {% for post in all_posts %}
         <article class="media content-section">
 
@@ -7,7 +9,11 @@
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2 home-post-author" href="{% url 'user-posts' post.author.username  %}">{{ post.author }}</a>
-              <small>{{ post.date|date:"F d, Y" }}  Likes:{{post.liked.all.count}}  Comments:{{post.all_comments}}</small>
+              {% if post.liked.all.count < 2 %}
+              <small>{{ post.date|date:"F d, Y" }}  Like:{{post.liked.all.count}} Comments: {{ post.total_comments }}</small>
+              {% else %}
+              <small>{{ post.date|date:"F d, Y" }}  Likes:{{post.liked.all.count}} Comments: {{ post.total_comments }} </small>
+              {% endif %}
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content|safe }}</p>

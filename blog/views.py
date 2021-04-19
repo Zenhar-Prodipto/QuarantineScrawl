@@ -17,13 +17,13 @@ from .forms import CommentForm
 
 
 def home(request):
-    context = {"all_posts": Post.objects.all()}
+    context = {"all_posts": Post.objects.all().order_by[-"created"]}
     return render(request, "blog/home.html", context)
 
 
 class HomePostListView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = "blog/temp.html"
+    template_name = "blog/home.html"
     ordering = ["-date"]
     paginate_by = 8
 
@@ -34,7 +34,7 @@ class HomePostListView(LoginRequiredMixin, ListView):
         axeLoggedInUser = Post.objects.exclude(author=loggedInUser.user)
         context["all_posts"] = axeLoggedInUser.exclude(
             author__in=loggedInUser.follow.all()
-        )
+        ).order_by("-date")
         return context
 
 
@@ -45,12 +45,14 @@ class AmigosPostListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         loggedInUser = Profile.objects.get(user=self.request.user)
         axedUser = Post.objects.exclude(author=loggedInUser.user)
-        return axedUser.filter(author__in=loggedInUser.follow.all())
+        return axedUser.filter(author__in=loggedInUser.follow.all()).order_by("-date")
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context["all_posts"] = self.get_queryset()
-        context["all_comments"] = Comment.objects.all().count()
+        a = 1
+        context["a"] = a
+        context["post_comments"] = Comment.objects.filter(post=a)
         return context
 
 
