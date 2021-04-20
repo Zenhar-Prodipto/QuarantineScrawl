@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "r-87-a%5q6oji0vpc5fr6*6zo-sjuyl!it7@$!qabg=m6w#9de"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://qurantinescrawl.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
@@ -84,20 +84,6 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
-
-# "default": {
-#     "ENGINE": "django.db.backends.sqlite3",
-#     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-# }
-#
-# "default": {
-#     "ENGINE": "django.db.backends.postgresql_psycopg2",
-#     "NAME": "QuarantineScrawl",
-#     "USER": "postgres",
-#     "PASSWORD": "postgresPassword",
-#     "HOST": "localhost",
-#     "PORT": "5433",
-# }
 
 
 # Password validation

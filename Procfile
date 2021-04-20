@@ -1,0 +1,1 @@
+web: gunicorn socialBlog.wsgi --log-file -
