@@ -1,0 +1,119 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.visit-profile-following-list-head {
+  height: 42vh;
+  background-color: white;
+}
+
+.visit-profile-following-list-profile-picture {
+  height: 80%;
+  width: 20%;
+  position: relative;
+  top: 2.5%;
+  left: 40%;
+}
+
+.visit-profile-following-list-currentUser-username {
+  position: relative;
+  top: 83%;
+  left: 23%;
+  font-size: 35px;
+}
+
+.visit-profile-following-list-wrap {
+  height: 100%;
+  background-color: white;
+}
+
+.visit-profile-following-list-header {
+  height: 15%;
+  /* border: 1px black solid; */
+  padding-left: 1%;
+}
+
+.visit-profile-following-list-count {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.visit-profile-following-list-header-text {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.visit-profile-following-list-card {
+  height: 25%;
+  background-color: white;
+  /* border: 1px black solid; */
+}
+
+.visit-profile-following-list-card-profile-picture {
+  display: inline-block;
+  position: relative;
+  -webkit-transform: translate(13%, 25%);
+  -moz-transform: translate(13%, 25%);
+  -ms-transform: translate(13%, 25%);
+  -o-transform: translate(13%, 25%);
+  transform: translate(13%, 25%);
+  height: 7%;
+  width: 7%;
+}
+
+.visit-profile-following-list-card-info {
+  position: relative;
+  /* border: 1px solid black; */
+  left: 10%;
+  transform: translate(-1%, -70%);
+}
+
+.visit-profile-following-list-card-username {
+  /* position: relative;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(9%, -250%); */
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.visit-profile-following-list-following-status {
+  /* display: inline-block; */
+  /* position: relative;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(43%, -400%); */
+  font-size: 16px;
+  display: inline-block;
+  position: relative;
+  transform: translate(0%, -70%);
+}
+
+.visit-profile-following-list-post-count {
+  /* display: inline-block;
+  position: relative;
+  -webkit-transform: translate(9%, -250%);
+  -moz-transform: translate(9%, -250%);
+  -ms-transform: translate(9%, -250%);
+  -o-transform: translate(9%, -250%);
+  transform: translate(-86%, -300%); */
+  font-size: 16px;
+  display: inline-block;
+  position: relative;
+  transform: translate(-150%, 0%);
+  transform: translate(0%, -70%);
+}
+.visit-profile-following-list-some-text {
+  display: inline-block;
+  transform: translate(2%, -200%);
+}
+
+.visit-profile-following-list-unfollow-form {
+  display: inline-block;
+  transform: translate(800%, -400%);
+}

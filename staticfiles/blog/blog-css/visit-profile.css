@@ -1,0 +1,70 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.visit-profile-head {
+  background-color: white;
+  height: 40vh;
+}
+
+.visit-profile-profile-picture {
+  height: 80%;
+  width: 20%;
+  position: relative;
+  left: 40%;
+  top: 2%;
+}
+
+.visit-profile-username {
+  font-size: 35px;
+  position: relative;
+  left: 20%;
+  top: 80%;
+}
+
+.visit-profile-row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.visit-profile-user-post-titles {
+  margin-bottom: 15px;
+}
+
+.visit-profile-post-title-li {
+  position: relative;
+  left: 20px;
+  text-decoration: underline;
+  font-size: 24px;
+}
+
+.visit-profile-post-title-li > a {
+  color: black;
+}
+
+.visit-profile-about-me {
+  margin-top: 5px;
+  text-shadow: black;
+}
+
+.following-info-wrap {
+  /* display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: auto auto auto; */
+}
+
+.visit-profile-follow-image {
+  height: 60px;
+  width: 60px;
+}
+
+.visit-profile-follower-info-wrap {
+}
+
+.visit-profile-follower-image {
+  height: 60px;
+  width: 60px;
+}
