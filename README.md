@@ -13,7 +13,7 @@ A micro blogging site where you talk about your quarantine journey and explore h
 
 # Demo
 
-[QuarantineScrawl](https://qurantinescrawl.herokuapp.com/login/?next=/)
+[QuarantineScrawl](https://qurantinescrawl.herokuapp.com/)
 
 # Features
 
