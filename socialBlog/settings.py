@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "r-87-a%5q6oji0vpc5fr6*6zo-sjuyl!it7@$!qabg=m6w#9de"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["https://qurantinescrawl.herokuapp.com/", "127.0.0.1"]
 
@@ -132,6 +132,9 @@ MEDIA_ROOT = os.path.join(
 )  # jeikhane uploaded file would be stored. jekomo os e and base dir er media folder e
 MEDIA_URL = "/media/"
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CRISPY_TEMPLATE_PACKS = "bootstrap4"
 LOGIN_REDIRECT_URL = "home"
