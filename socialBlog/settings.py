@@ -127,9 +127,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 
-MEDIA_ROOT = os.path.join(
-    BASE_DIR, "media"
-)  # jeikhane uploaded file would be stored. jekomo os e and base dir er media folder e
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
@@ -138,10 +136,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 CRISPY_TEMPLATE_PACKS = "bootstrap4"
 LOGIN_REDIRECT_URL = "home"
-LOGIN_URL = (
-    "login"  # login chhara kew /profile likhle 404 na dekhay direct login e niye jabe
-)
-# And then login korle landing page hobe profile, not home
+LOGIN_URL = "login"
+
 
 # CK EDITOR
 
