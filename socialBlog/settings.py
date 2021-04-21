@@ -25,7 +25,7 @@ SECRET_KEY = "r-87-a%5q6oji0vpc5fr6*6zo-sjuyl!it7@$!qabg=m6w#9de"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://qurantinescrawl.herokuapp.com/", "127.0.0.1"]
+ALLOWED_HOSTS = ["qurantinescrawl.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
