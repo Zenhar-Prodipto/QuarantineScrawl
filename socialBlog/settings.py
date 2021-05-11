@@ -143,6 +143,13 @@ LOGIN_URL = "login"
 
 CKEDITOR_UPLOAD_PATH = "blog_post_pics"
 CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        # "toolbar": None,  # You can change this based on your requirements.
+        "width": "auto",
+    },
+}
 # CKEDITOR_UPLOAD_PATH = "blog/blog_post_images"
 
 # email password

@@ -47,17 +47,19 @@
 
   {% if post.liked.all.count < 2 %}
 
-  <strong style="color: white;">Like: {{post.liked.all.count}}</strong>
+  <strong  style="color: white;">Like: {{post.liked.all.count}}</strong>
 {% else %}  
-<strong style="color: white;">Likes: {{post.liked.all.count}}</strong>
+<strong  style="color: white; ">Likes: {{post.liked.all.count}}</strong>
 {% endif %}
 
   {% if displayCommentSection %}
-  <article class="media content-section">
+  <article class="media mt-2 content-section">
     <div class="media-body">
       <div class="article-metadata">
         <div class="row">
-          <div class="col-6">
+
+
+          <div class="col-lg-6 col-md-6 col-sm-6">
         <h3>comments</h3>
 
         <strong><p style="color:black">Total {{comments.all.count}} comments from {{post.commented.all.count}} people</p></strong>
@@ -71,9 +73,9 @@
                 <p class='post-detail-comment' ><strong>comment:</strong>  {{comment.user_comment}} </p>
               </div>
               {% if comment.user == request.user %}
-              <form action="{% url 'remove-comment' %}" method="POST">
+              <form class='post-detail-remove-comment-form' action="{% url 'remove-comment' %}" method="POST">
                 {% csrf_token %}
-                <button class="btn btn-outline-danger"  name='comment_id' value={{comment.id}} type="submit">Remove</button>
+                <button class=" post-detail-remove-comment-btn btn btn-outline-danger"  name='comment_id' value={{comment.id}} type="submit">Remove</button>
               </form>
               {% endif %}
             </div>
@@ -81,19 +83,22 @@
             {% endfor %}
           </div>
 
-          <div class="col-4">
+       
 
         <!-- Comment Form  -->
-        <h2>Add a new comment</h2>
-     
-        <form action="{% url 'comment-post'  %}" method="POST">
-          {% csrf_token %}
-              <input type="hidden" name="post_id_from_form"  value="{{post.id}}" tabindex="1" >  
-              <textarea  name="user_comment_from_form" value="{{comments.user_comment}}" id="comment" rows="5" cols="50" tabindex="10"  required="required"></textarea>
-              <label for="comment" class="required">Add a comment</label>
-              <button class=" btn btn-outline-primary" type="submit">Post</button> 
-          </div>
-        </form> 
+        <div class=" mt-2 col-lg-4 col-md-4 col-sm-6">
+          <h2>Add a new comment</h2>
+       
+          <form action="{% url 'comment-post'  %}" method="POST">
+            {% csrf_token %}
+                <input type="hidden" name="post_id_from_form"  value="{{post.id}}" tabindex="1" >  
+                <textarea  name="user_comment_from_form" value="{{comments.user_comment}}" id="comment" rows="5" cols="28" tabindex="10"  required="required"></textarea>
+                <label for="comment" class="required">Add a comment</label>
+                <button class=" mt-2 btn btn-outline-primary" type="submit">Post</button> 
+            
+          </form> 
+        </div>
+
       </div>
     </div>
 
@@ -101,7 +106,7 @@
 
   
   {%else%}
-  <h3 style="color:white">Total {{post.commented.all.count}} people commented</h3>
+  <h3 class=" mt-2 content-section" style="font-size: 16px;">Total {{post.commented.all.count}} people commented</h3>
   {% endif %}
 
 {% endblock content %}

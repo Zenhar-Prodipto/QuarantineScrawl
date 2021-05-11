@@ -40,7 +40,7 @@ class HomePostListView(LoginRequiredMixin, ListView):
 
 class AmigosPostListView(LoginRequiredMixin, ListView):
 
-    template_name = "blog/followspost.html"
+    template_name = "blog/homeWithAmigos.html"
 
     def get_queryset(self):
         loggedInUser = Profile.objects.get(user=self.request.user)
@@ -273,6 +273,7 @@ class ProfileVisitView(LoginRequiredMixin, ListView):
             three_posts = True
             return three_posts
         else:
+            more = True
             return more
 
     def get_context_data(self, **kwargs):

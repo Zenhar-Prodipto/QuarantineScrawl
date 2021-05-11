@@ -14,7 +14,7 @@
 {% block content %} 
     
 <div class="profile-wrap">
-    <div class="media profile-head">
+    <div class="media content-section profile-head">
       <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
       <div class="media-body">
         <h2 class="account-heading">{{user.username}}</h2>
@@ -38,7 +38,7 @@
           </div>
       </form>
 
-      <button><a href="{% url 'password-reset' %}">Update Password</a></button>
+      <button class="btn btn-outline-info"><a href="{% url 'password-reset' %}">Update Password</a></button>
       </div>
 {% endblock content %}
 

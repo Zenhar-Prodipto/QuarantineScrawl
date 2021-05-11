@@ -8,7 +8,7 @@
 {% block content %}
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-lg-8 col-md-8 col-sm-6">
   {% for post in all_posts %}
   <div class="home-post-main-wrap">
    
@@ -21,7 +21,7 @@
             </div>
 
             <div class="post-author">
-             <p> Post By <a class="post-author-link" href="{% url 'user-posts' post.author.username  %}"> {{post.author}}</a></p>  
+             <p> <a class="post-author-link" href="{% url 'user-posts' post.author.username  %}"> {{post.author}}</a></p>  
             </div>
 
             <div class="post-date">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="post-content">
-              <p>{{ post.content|slice:"0:100" }} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
+              <p>{{ post.content|slice:"0:200" }} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
               
             </div>   
         </div>
@@ -60,7 +60,7 @@
 
   </div>
 
-  <div class="col-md-4">
+  <div class="col-lg-4 col-md-4 col-sm-8">
     <div class="content-section">
       <h3>Explore </h3>
       <p class=''>Explore what's happening in Quarantine

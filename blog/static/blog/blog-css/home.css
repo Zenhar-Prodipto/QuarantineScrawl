@@ -136,3 +136,154 @@ body {
 
 .home-carousel-control {
 }
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  body {
+    background-color: black;
+  }
+
+  .home-post-main-wrap {
+    height: 40vh;
+    margin-bottom: 20px;
+    background-color: white;
+  }
+
+  .home-carousel {
+    height: 100%;
+    margin-bottom: 10px;
+  }
+
+  .home-carousel-inner {
+    height: 100%;
+  }
+
+  .home-carousel-item {
+    background-color: white;
+    height: 100%;
+  }
+
+  .home-image-wrap {
+    /* height: 20%;
+    margin-bottom: 5%; */
+  }
+
+  .home-image-wrap > img {
+    height: 35%;
+    width: 35%;
+    position: absolute;
+    top: 2%;
+    left: 32%;
+    border-radius: 100px;
+    object-fit: cover;
+  }
+
+  .post-author {
+    position: absolute;
+    left: 30%;
+    top: 39%;
+    font-size: 22px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: black;
+  }
+
+  .post-author-link {
+    color: black;
+    transition: all 0.2s ease-in-out;
+    /* width: 200px;
+    height: 200px; */
+    display: inline-block;
+  }
+
+  .post-author-link:hover {
+    color: black;
+    transform: scale(1.1);
+  }
+
+  .post-date {
+    position: absolute;
+    left: 30%;
+    top: 50%;
+    font-size: 14px;
+  }
+
+  .post-title {
+    position: absolute;
+    top: 60%;
+    left: 4%;
+    font-size: 26px;
+    font-weight: bold;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    /* margin-bottom: 5px; */
+  }
+
+  .post-content {
+    position: absolute;
+    left: 4%;
+    top: 70%;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .post-content-link {
+    font-size: 32px;
+    color: black;
+  }
+  .post-content-link:hover {
+    font-size: 32px;
+    color: black;
+  }
+
+  .home-carousel-control {
+    height: 20%;
+    position: absolute;
+    top: 20%;
+    z-index: 20;
+  }
+  .carousel-control-prev {
+    width: 5%;
+    position: relative;
+
+    bottom: 20%;
+    background-color: black;
+    z-index: 1;
+  }
+
+  .carousel-control-next {
+    width: 5%;
+    position: relative;
+
+    bottom: 20%;
+    left: 95.3%;
+    background-color: black;
+  }
+
+  .content-section {
+    position: fixed;
+  }
+  .explore {
+    height: 400px;
+    width: 300px;
+  }
+
+  .explore li {
+    height: 6em;
+  }
+
+  .user-posts-title {
+    color: #428bca;
+    padding-bottom: 7px;
+  }
+
+  .user-posts-title {
+    color: white;
+  }
+
+  .home-carousel-control {
+  }
+}
