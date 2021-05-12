@@ -239,7 +239,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class ProfileVisitView(LoginRequiredMixin, ListView):
 
-    template_name = "blog/visit_profile.html"
+    template_name = "blog/visit_profile_2.html"
     model = Profile
 
     def get_object(self, **kwargs):  # getting the pk from the url
@@ -249,55 +249,94 @@ class ProfileVisitView(LoginRequiredMixin, ListView):
     def top_liked_posts_list(self):
         viewProfile = get_object_or_404(Profile, user=self.get_object())
         viewProfilePosts = Post.objects.filter(author=viewProfile.user)
-
         top_likes_list = []
 
         for post in viewProfilePosts:
             top_likes_list.append(post.liked.all().count())
 
-        top = sorted(top_likes_list, reverse=True)
-        return top
+        top = sorted(top_likes_list, reverse=True)[:3]
+        return top[:3]
 
-    def number_of_post_count(self):
-        top = self.top_liked_posts()
-        if len(top) == 0:
+    def number_of_top_post_count(self):
+        if len(self.top_liked_posts_list()) == 0:
             no_post = True
             return no_post
-        elif len(top) == 1:
+        elif len(self.top_liked_posts_list()) == 1:
             one_post = True
             return one_post
-        elif len(top) == 2:
+        elif len(self.top_liked_posts_list()) == 2:
             two_posts = True
             return two_posts
-        elif len(top) == 3:
+        elif len(self.top_liked_posts_list()) == 3:
             three_posts = True
             return three_posts
         else:
-            more = True
             return more
+
+    # def top_liked_posts_list(self):
+    #     viewProfile = get_object_or_404(Profile, user=self.get_object())
+    #     viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+
+    #     top_likes_list = []
+
+    #     for post in viewProfilePosts:
+    #         top_likes_list.append(post.liked.all().count())
+
+    #     top = sorted(top_likes_list, reverse=True)
+    #     return top[:3]  # first 3 elements
+
+    # def number_of_post_count(self):
+    #     top = self.top_liked_posts()
+    #     if len(top) == 0:
+    #         no_post = True
+    #         return no_post
+    #     elif len(top) == 1:
+    #         one_post = True
+    #         return one_post
+    #     elif len(top) == 2:
+    #         two_posts = True
+    #         return two_posts
+    #     elif len(top) == 3:
+    #         three_posts = True
+    #         return three_posts
+    #     else:
+    #         more = True
+    #         return more
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # viewProfile = get_object_or_404(Profile, user=self.get_object())
         viewProfile = Profile.objects.get(user=self.get_object())
         viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+        top_likes_list = []
 
+        for post in viewProfilePosts:
+            top_likes_list.append(post.liked.all().count())
+
+        top = sorted(top_likes_list, reverse=True)[:3]
+
+        # order_by("-date")[0:3]
         context["top"] = self.top_liked_posts_list()
         context["viewProfile"] = viewProfile
         context["viewProfilePosts"] = viewProfilePosts
-        context["top_likes"]: viewProfilePosts.objects.filter(
+        context["top_likes"] = viewProfilePosts.filter(
             liked__in=self.top_liked_posts_list()
         )
-        context["no_post"]: self.number_of_post_count()
-        context["one_post"]: self.number_of_post_count()
-        context["two_posts"]: self.number_of_post_count()
-        context["three_posts"]: self.number_of_post_count()
-        context["follow_profiles"]: Profile.objects.filter(
+        # context["top_likes"]: viewProfilePosts.objects.filter(
+        #     liked__in=self.top_liked_posts_list()
+        # )
+        context["no_post"] = self.number_of_top_post_count()
+        context["one_post"] = self.number_of_top_post_count()
+        context["two_posts"] = self.number_of_top_post_count()
+        context["three_posts"] = self.number_of_top_post_count()
+        context["follow_profiles"] = Profile.objects.filter(
             user__in=viewProfile.follow.all()
         )
-        context["follower_profiles"]: Profile.objects.filter(
+        context["follower_profiles"] = Profile.objects.filter(
             user__in=viewProfile.follower.all()
         )
+        context["list"] = top
+        context["ob"] = viewProfilePosts.filter(liked__in=top)
 
         return context
 

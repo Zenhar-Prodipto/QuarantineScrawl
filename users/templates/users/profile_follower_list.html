@@ -16,14 +16,16 @@
         <h2 class="follower-list-currentUser-username account-heading">{{user.username}}</h2>
     </div>
     
+
+
     <div class="follower-list-wrap">
  
+
       <div class="follower-list-header">
         
-          <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profiles</p>
-          <p class="follower-list-header-text">Profiles that follow you-</p>
-      </div>
-  
+        <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profiles</p>
+        <p class="follower-list-header-text">Profiles that follow you-</p>
+    </div>
       {% for profile in follower_Profiles %}
       <div class="follower-list-card">
           <img class="follower-list-card-profile-picture rounded-circle account-img" src="{{profile.image.url}}" alt="user-profile-picture">

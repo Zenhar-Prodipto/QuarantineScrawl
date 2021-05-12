@@ -69,6 +69,102 @@
   width: 60px;
 }
 
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+/* Tabs  */
+
+@media (min-width: 481px) and (max-width: 768px) {
+  * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+  .visit-profile-head {
+    background-color: white;
+    height: 30vh;
+  }
+
+  .visit-profile-profile-picture {
+    height: 51%;
+    width: 24%;
+    position: relative;
+    left: 38%;
+    top: 2%;
+    object-fit: fill;
+  }
+
+  .visit-profile-username {
+    font-size: 25px;
+    position: relative;
+    left: 14%;
+    top: 62%;
+  }
+
+  .visit-profile-row {
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 80vh;
+  }
+
+  .visit-profile-user-post-titles {
+    margin-bottom: 15px;
+  }
+
+  .visit-profile-post-title-li {
+    position: relative;
+    left: 20px;
+    text-decoration: underline;
+    font-size: 24px;
+  }
+
+  .visit-profile-post-title-li > a {
+    color: black;
+  }
+
+  .visit-profile-about-me {
+    margin-top: 5px;
+    text-shadow: black;
+  }
+
+  .following-info-wrap {
+    /* display: grid;
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      grid-template-columns: auto auto auto; */
+  }
+
+  .visit-profile-follow-image {
+    height: 60px;
+    width: 60px;
+  }
+
+  .visit-profile-follower-info-wrap {
+  }
+
+  .visit-profile-follower-image {
+    height: 60px;
+    width: 60px;
+  }
+
+  .visit-profile-following-list-count-text {
+    font-size: 16px;
+    /* font-family: "Courier New", Courier, monospace; */
+  }
+}
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+/* Mobile  */
+
 @media (min-width: 320px) and (max-width: 480px) {
   * {
     margin: 0px;
@@ -78,12 +174,12 @@
 
   .visit-profile-head {
     background-color: white;
-    height: 35vh;
+    height: 30vh;
   }
 
   .visit-profile-profile-picture {
-    height: 50%;
-    width: 50%;
+    height: 60%;
+    width: 45%;
     position: relative;
     left: 27%;
     top: 2%;
@@ -92,8 +188,8 @@
   .visit-profile-username {
     font-size: 25px;
     position: relative;
-    left: -25%;
-    top: 60%;
+    left: -20%;
+    top: 70%;
   }
 
   .visit-profile-row {
@@ -139,5 +235,10 @@
   .visit-profile-follower-image {
     height: 60px;
     width: 60px;
+  }
+
+  .visit-profile-following-list-count-text {
+    font-size: 16px;
+    /* font-family: "Courier New", Courier, monospace; */
   }
 }

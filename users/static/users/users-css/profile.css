@@ -76,6 +76,99 @@
 /* ========================================================================================= */
 /* ==========================================================================================*/
 
+@media (min-width: 481px) and (max-width: 768px) {
+  * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+
+  .profile-head {
+    background-color: white;
+    height: 30vh;
+  }
+
+  .profile-profile-picture {
+    height: 16%;
+    width: 21%;
+    position: absolute;
+    left: 39%;
+    top: 12%;
+    object-fit: fill;
+  }
+
+  .profile-username {
+    font-size: 25px;
+    position: relative;
+    left: 46%;
+    top: 74%;
+    font-weight: bold;
+  }
+
+  .profile-row {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .profile-post-count {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-user-post-titles {
+    margin-bottom: 15px;
+  }
+
+  .profile-post-title-li {
+    position: relative;
+    left: 20px;
+    text-decoration: underline;
+    font-size: 24px;
+  }
+
+  .profile-post-title-li > a {
+    color: black;
+  }
+
+  .profile-about-me {
+    margin-top: 5px;
+    text-shadow: black;
+  }
+
+  .profile-following-info-wrap {
+    display: grid;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-columns: auto auto auto;
+  }
+
+  .profile-follow-image {
+    height: 60px;
+    width: 60px;
+  }
+
+  .profile-follower-info-wrap {
+  }
+
+  .profile-follower-image {
+    height: 60px;
+    width: 60px;
+  }
+  .profile-follower-info-wrap {
+  }
+
+  .profile-update-profile-button > a {
+    color: white;
+  }
+}
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+
 @media (min-width: 320px) and (max-width: 480px) {
   * {
     margin: 0px;
@@ -154,10 +247,10 @@
     height: 60px;
     width: 60px;
   }
-}
-.profile-follower-info-wrap {
-}
+  .profile-follower-info-wrap {
+  }
 
-.profile-update-profile-button > a {
-  color: white;
+  .profile-update-profile-button > a {
+    color: white;
+  }
 }

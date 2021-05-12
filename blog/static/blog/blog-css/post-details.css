@@ -39,6 +39,66 @@
 /* ========================================================================================= */
 /* ==========================================================================================*/
 
+@media (min-width: 481px) and (max-width: 768px) {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .post-detail-comment-section-wrap {
+  }
+
+  .post-detail-each-comment {
+    height: 10vh;
+    /* border: black 1px solid; */
+
+    /* position: relative;  */
+  }
+
+  .post-detail-profile-picture {
+    position: absolute;
+    top: 5%;
+    left: 1%;
+  }
+
+  .post-detail-commented-by {
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    text-decoration: underline;
+    color: black;
+    font-size: 16px;
+  }
+
+  .post-detail-comment {
+    max-height: 10vh;
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    /* overflow-wrap: break-word; */
+    margin-bottom: 20px;
+    word-wrap: break-word; /* IE */
+    margin-bottom: 10px;
+  }
+
+  .post-detail-remove-comment-form {
+  }
+
+  .post-detail-remove-comment-btn {
+    position: relative;
+    top: 20%;
+    left: 30%;
+  }
+}
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+/* MOBILE  */
+
 @media (min-width: 320px) and (max-width: 480px) {
   * {
     margin: 0;
