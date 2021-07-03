@@ -34,7 +34,7 @@
             </div>
 
             <div class="post-content">
-              <p>{{ post.content|slice:"0:200" }} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
+              <p>{{ post.content|safe|slice:"0:200" }} <a class="post-content-link" href="{% url 'post-detail' post.id %}"> ...</a></p>
               
             </div>   
         </div>
@@ -78,7 +78,7 @@
 
 
  
-    {% if is_paginated %}
+    <!-- {% if is_paginated %}
 
     {% if page_obj.has_previous %}
       <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
@@ -98,6 +98,6 @@
       <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
     {% endif %}
 
-  {% endif %}
+  {% endif %} -->
 {% endblock content %}
 

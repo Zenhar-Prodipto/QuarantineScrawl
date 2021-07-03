@@ -29,28 +29,55 @@
        
         <div class="visit-profile-user-post-titles">
 
-          {% if no_post %}
 
-          <ul>
-            <li class="visit-profile-post-title-li"><a href="">{{viewProfile.user}} does not have any post yet</a></li>
-          </ul>
+            {% if not no_post %}
 
-          {% endif %}
+            <ul>
+              <li class="profile-post-title-li"><a href="">You do not have any post yet</a></li>
+            </ul>
+  
+            {% endif %}
+        
+            {% if viewProfile.count < 2 %}
+            <h5 class="profile-post-count">{{viewProfile.user}} has {{viewProfilePosts.count}} posts</h5>
 
-          <h5>{{viewProfile.user}} has {{viewProfilePosts.count}} posts</h5>
-          <h5>Top Posts</h5>
-          {% for post in viewProfilePosts %} 
+            {% else %}
+            <h5 class="profile-post-count">{{viewProfile.user}} has {{viewProfilePosts.count}} post</h5>
 
-          {% if post.liked.count in top %}
-         
-          <ul>
-            <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></li>
-          </ul>
+            {% endif %}
 
-           {% endif %} 
 
-           {% endfor %}
-          
+            <h5>Top Posts</h5>
+            {% for t in top_likes%}
+  
+            {% if one_post %}
+  
+            <ul>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            </ul>
+  
+            {% elif two_posts %}
+  
+            <ul>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            </ul>
+  
+            {% elif three_posts%}
+  
+            <ul>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+              <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' t.id %}">{{t.title}}</a></li>
+            </ul>
+  
+            {% else %}
+  
+            <h1>Hope it doesn't come down to this</h1>
+  
+            {% endif %}
+  
+            {% endfor %}
 
           </div>
           <p class="visit-profile-about-me"><strong>about {{viewProfile.user}}: </strong>bjfsjfjsjhf</p>

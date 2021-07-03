@@ -343,6 +343,110 @@ User Posts
 
 
 
+visit-profile Initial code 
+==============================
+
+
+
+{% extends "blog/base.html" %}
+<!-- {% block title %}<title>{{view.kwargs.username }}</title>{% endblock %} -->
+
+{%load static %}
+
+{% block bootstrapClass %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'blog/blog-css/visit-profile.css' %}">
+ {% endblock %}
+
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+
+
+<div class="visit-profile-wrap">
+    <div class="media visit-profile-head">
+      <img class=" visit-profile-profile-picture rounded-circle account-img" src="{{ viewProfile.image.url }}">
+
+        <h2 class="visit-profile-username account-heading">{{viewProfile.user}}</h2>
+
+    </div>
+
+    <div class="content-section visit-profile-row row">
+
+      <div class=" visit-profile-info col-lg-6 col-md-6 col-sm-12">
+       
+        <div class="visit-profile-user-post-titles">
+
+          {% if no_post %}
+
+          <ul>
+            <li class="visit-profile-post-title-li"><a href="">{{viewProfile.user}} does not have any post yet</a></li>
+          </ul>
+
+          {% endif %}
+
+          <h5>{{viewProfile.user}} has {{viewProfilePosts.count}} posts</h5>
+          <h5>Top Posts</h5>
+          {% for post in viewProfilePosts %} 
+
+          {% if post.liked.count in top %}
+         
+          <ul>
+            <li class="visit-profile-post-title-li"><a href="{% url 'post-detail' post.id %}">{{post.title}}</a></li>
+          </ul>
+
+           {% endif %} 
+
+           {% endfor %}
+          
+
+          </div>
+          <p class="visit-profile-about-me"><strong>about {{viewProfile.user}}: </strong>bjfsjfjsjhf</p>
+     
+          <p class="visit-profile-userEmail"><strong>Email: </strong>{{viewProfile.user.email}}</p>
+          </div>
+
+
+          <!-- Following list  -->
+          <div class="follower-following-info col-lg-6 col-md-6 col-sm-12">
+         
+            {% if viewProfile.follow.all.count > 1 %}
+            <h5 class="visit-profile-following-list-count-text">{{viewProfile.user}} follows {{viewProfile.follow.all.count}} users</h5>
+            {% else %}
+            <h5 class="visit-profile-following-list-count-text">{{viewProfile.user}} follows {{viewProfile.follow.all.count}} user</h5>
+            {% endif %}
+  
+            <div class="visit-profile-following-info-wrap">
+            {% for profile in viewProfile.follow.all %}
+            <a href="{% url 'user-posts' profile.profile.user %}"><img class=" visit-profile-follow-image rounded-circle account-img" src="{{profile.profile.image.url}}" alt="following image"></a>
+            {% endfor %}
+          </div>
+          <p><a href="{% url 'visit-profile-following-list' viewProfile.user %}">Sell All</a><p>
+          
+
+          <!-- Followers list  -->
+          {% if viewProfile.follower.all.count > 1 %}
+          <h5 class="visit-profile-following-list-count-text" >{{viewProfile.user}} is followed by {{viewProfile.follower.all.count}} users</h5>
+          {% else %}
+          <h5 class="visit-profile-following-list-count-text" >{{viewProfile.user}} is followed by {{viewProfile.follower.all.count}} user</h5>
+          {% endif %}
+
+          <div class="visit-profile-follower-info-wrap">
+          {% for profile in viewProfile.follower.all %}
+          <a href="{% url 'user-posts' profile.profile.user %}"><img class=" visit-profile-follower-image rounded-circle account-img" src="{{profile.profile.image.url}}" alt="followers image"></a>
+          {% endfor %}
+        </div>
+        
+          <p><a href="{% url 'visit-profile-follower-list' viewProfile.user %}">Sell All</a><p>
+          </div>
+
+
+          </div>
+
+{% endblock content %}
+
+
 
 
 

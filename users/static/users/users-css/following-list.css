@@ -125,6 +125,122 @@
 /* ========================================================================================= */
 /* ==========================================================================================*/
 
+@media (min-width: 481px) and (max-width: 768px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .following-list-head {
+    height: 42vh;
+    background-color: white;
+  }
+
+  .following-list-profile-picture {
+    height: 60%;
+    width: 50%;
+    position: relative;
+    top: 2.5%;
+    left: 26%;
+    object-fit: cover;
+  }
+
+  .following-list-currentUser-username {
+    position: relative;
+    top: 69%;
+    left: -10%;
+    font-size: 25px;
+  }
+
+  .following-list-wrap {
+    height: 100%;
+    background-color: white;
+  }
+
+  .following-list-header {
+    height: 15%;
+    /* border: 1px black solid; */
+    padding-left: 1%;
+  }
+
+  .following-list-count {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .following-list-header-text {
+    font-size: 16px;
+    margin-bottom: 20%;
+    margin-left: 2%;
+  }
+
+  .following-list-card {
+    height: 25%;
+    background-color: white;
+    /* border: 1px black solid; */
+  }
+
+  .following-list-card-profile-picture {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    top: -23%;
+    left: 0%;
+  }
+
+  .following-list-card-info {
+    position: relative;
+    left: 10%;
+  }
+
+  .following-list-card-username {
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: 0%;
+    left: 12%;
+  }
+
+  .following-list-following-status {
+    position: relative;
+    top: 37%;
+    left: -6%;
+  }
+
+  .following-list-post-count {
+    /* display: inline-block;
+    position: relative;
+    -webkit-transform: translate(9%, -250%);
+    -moz-transform: translate(9%, -250%);
+    -ms-transform: translate(9%, -250%);
+    -o-transform: translate(9%, -250%);
+    transform: translate(-86%, -300%); */
+    font-size: 16px;
+    /* display: inline-block; */
+    position: relative;
+    top: 6%;
+    left: -6%;
+  }
+  .following-list-some-text {
+    display: inline-block;
+    transform: translate(2%, -200%);
+  }
+
+  .following-list-unfollow-form {
+    position: relative;
+    top: -8%;
+    left: 100%;
+  }
+}
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+
 @media (min-width: 320px) and (max-width: 480px) {
   * {
     padding: 0;

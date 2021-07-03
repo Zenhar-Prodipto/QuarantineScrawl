@@ -239,7 +239,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class ProfileVisitView(LoginRequiredMixin, ListView):
 
-    template_name = "blog/visit_profile_2.html"
+    template_name = "blog/visit_profile.html"
     model = Profile
 
     def get_object(self, **kwargs):  # getting the pk from the url
@@ -345,10 +345,27 @@ class VisitProfilefollowingListView(LoginRequiredMixin, ListView):
     template_name = "blog/visit_profile_following_list.html"
     model = Profile
 
+    def no_of_following(self):
+
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+        following_Profiles = Profile.objects.filter(user__in=viewProfile.follow.all())
+
+        if following_Profiles.count == 0:
+            no_profile = True
+            return no_profile
+        elif following_Profiles.count == 1:
+            one_profile = True
+            return one_profile
+        else:
+            more_than_one_profile = True
+            return more_than_one_profile
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
         viewProfile = Profile.objects.get(user=usernameFromURL)
+        following_Profiles = Profile.objects.filter(user__in=viewProfile.follow.all())
 
         context["viewProfile"] = viewProfile
         context["following_Profiles"] = Profile.objects.filter(
@@ -358,6 +375,13 @@ class VisitProfilefollowingListView(LoginRequiredMixin, ListView):
             author__in=viewProfile.follow.all()
         )
 
+        for profile in following_Profiles:
+            context["f"] = Post.objects.filter(author=profile.user)
+
+        context["no_profile"] = self.no_of_following()
+        context["one_profile"] = self.no_of_following()
+        context["more_than_one_profile"] = self.no_of_following()
+
         return context
 
 
@@ -365,10 +389,26 @@ class VisitProfilefollowerListView(LoginRequiredMixin, ListView):
     template_name = "blog/visit_profile_follower_list.html"
     model = Profile
 
+    def no_of_followers(self):
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+        follower_Profiles = Profile.objects.filter(user__in=viewProfile.follower.all())
+
+        if follower_Profiles.count == 0:
+            no_profile = True
+            return no_profile
+        elif follower_Profiles.count == 1:
+            one_profile = True
+            return one_profile
+        else:
+            more_than_one_profile = True
+            return more_than_one_profile
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
         viewProfile = Profile.objects.get(user=usernameFromURL)
+        follower_Profiles = Profile.objects.filter(user__in=viewProfile.follower.all())
 
         context["viewProfile"] = viewProfile
         context["follower_Profiles"] = Profile.objects.filter(
@@ -377,6 +417,11 @@ class VisitProfilefollowerListView(LoginRequiredMixin, ListView):
         context["follower_Profile_Posts"] = Post.objects.filter(
             author__in=viewProfile.follower.all()
         )
+
+        context["no_profile"] = self.no_of_followers()
+        context["one_profile"] = self.no_of_followers()
+        context["more_than_one_profile"] = self.no_of_followers()
+        context["s"] = follower_Profiles.count
 
         return context
 

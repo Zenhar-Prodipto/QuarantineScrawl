@@ -18,8 +18,16 @@
 
     <div class="visit-profile-following-list-wrap">
         <div class="visit-profile-following-list-header">
+            {% if following_Profiles.count < 1 %}
+            <p class="visit-profile-following-list-count">{{viewProfile.user}} follows nobody</p>
+            {% elif following_Profiles.count > 1   %}
             <p class="visit-profile-following-list-count">{{viewProfile.user}} follows {{following_Profiles.count}} profiles</p>
             <p class="visit-profile-following-list-header-text">Profiles {{viewProfile.user}} is following-</p>
+            {% else  %}
+            <p class="visit-profile-following-list-count">{{viewProfile.user}} follows {{following_Profiles.count}} profile</p>
+            <p class="visit-profile-following-list-header-text">Profiles {{viewProfile.user}} is following-</p>
+
+            {% endif %}
         </div>
 
         {% for profile in following_Profiles %}
@@ -31,13 +39,14 @@
                 <p class="visit-profile-following-list-card-username">{{profile.user.username}}</p>
 
           
-                <p class="visit-profile-following-list-post-count">{{profile.user.username}} has <strong>{{ following_Profile_Posts.count}} posts</strong></p>
+                <p class="visit-profile-following-list-post-count">{{profile.user.username}} has <strong>{{ profile.user.f }} posts</strong></p>
 
             </div>
             
             <p class="visit-profile-following-list-some-text">fkjdshfjhfjhjhfjhfashfjfhjdhfjdhfjkhfjhjkhfjdhjfh</p>
 
         </div>
+        
 
 
         {% endfor %}
