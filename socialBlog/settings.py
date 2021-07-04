@@ -16,7 +16,8 @@ import dotenv
 # to store media files on heroku
 import cloudinary
 import cloudinary_storage
-import cloudinary api
+import cloudinary.api
+import cloudinary.uploader
 
 # this line is already in your settings.py
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
