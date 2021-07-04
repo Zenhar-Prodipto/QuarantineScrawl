@@ -18,8 +18,16 @@
 
     <div class="following-list-wrap">
         <div class="following-list-header">
-            <p class="following-list-count">you follow {{following_Profiles.count}} profiles</p>
-            <p class="following-list-header-text">Profiles you're following-</p>
+            {% if following_Profiles.count < 1 %}
+            <p class="following-list-count">you follow nobody</p>
+            {% elif following_Profiles.count > 1   %}
+            <p class="following-list-count">you  follow {{following_Profiles.count}} profiles</p>
+            <p class="following-list-header-text">Profiles that follow you-</p>
+    
+            {% else  %}
+            <p class="following-list-count">you follow {{following_Profiles.count}} profile</p>
+            <p class="following-list-header-text">Profiles that follow you-</p>
+            {% endif %}
         </div>
 
         {% for profile in following_Profiles %}
@@ -34,12 +42,12 @@
                     <p class="following-list-following-status">you and {{profile.user.username}} are following each other</p>
         
                 {% else %}
-                    <p class="following-list-following-status">{{profile.user.username}} does not follow you ||</p>
+                    <p class="following-list-following-status">{{profile.user.username}} does not follow you</p>
             
                 {% endif %}
 
              
-            <p class="following-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p>
+            <!-- <p class="following-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p> -->
             </div>
             
             <p class="following-list-some-text">fkjdshfjhfjhjhfjhfashfjfhjdhfjdhfjkhfjhjkhfjdhjfh</p>

@@ -287,7 +287,7 @@
   .following-list-header-text {
     font-size: 16px;
     margin-bottom: 20%;
-    margin-left: 2%;
+    margin-left: 0%;
   }
 
   .following-list-card {
@@ -314,13 +314,13 @@
     font-size: 20px;
     font-weight: bold;
     position: relative;
-    top: 0%;
+    top: 12%;
     left: 12%;
   }
 
   .following-list-following-status {
     position: relative;
-    top: 37%;
+    top: 50%;
     left: -6%;
   }
 
@@ -345,7 +345,7 @@
 
   .following-list-unfollow-form {
     position: relative;
-    top: -8%;
-    left: -57%;
+    top: 30%;
+    right: 135%;
   }
 }
