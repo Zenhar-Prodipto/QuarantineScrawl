@@ -3,17 +3,17 @@
 {% block content %}
 
 
-<h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2><!-- <h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2> -->
+<h2 style="color:white; font-size: 22px; text-align: center;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2><!-- <h2 style="color:white;" class="mb-3 user-posts-title" > There are {{page_obj.paginator.count}} posts by {{ view.kwargs.username }}  </h2> -->
 {% for vProfile in viewProfile %}
 
 {%  if not current_user %}
 
 {% if following %}
-<form action="{% url 'follow-unfollow-view' %}" method="POST">
+<form class="mb-3" action="{% url 'follow-unfollow-view' %}" method="POST">
     {% csrf_token %}
 
     <input type="hidden" name="view_profile_pk" value="{{vProfile.id}}">
-    <button type="submit" class="btn-success">Unfollow</button>
+    <button type="submit" class="btn-outline-success">Unfollow</button>
 </form>
 
 {% else %}
@@ -21,7 +21,7 @@
     {% csrf_token %}
 
     <input type="hidden" name="view_profile_pk" value="{{vProfile.id}}">
-    <button type="submit" class="btn-primary" >Follow</button>
+    <button type="submit" class="btn-outline-primary" >Follow</button>
 </form>
 
 
@@ -33,7 +33,7 @@
 {% if bothFollowing %}
  
 <div class="profile-button-wrap">
-  <button><a href="{% url 'profile-visit' view.kwargs.username %}">Check out {{view.kwargs.username}}'s profile</a></button>
+  <button class="btn btn-outline-success"><a style="color:white" href="{% url 'profile-visit' view.kwargs.username %}">Check out {{view.kwargs.username}}'s profile</a></button>
 </div>
 {% endif %}
 <br>

@@ -26,7 +26,7 @@
 
     <div class="content-section profile-row row">
 
-      <div class=" profile-info col-6">
+      <div class=" profile-info col-lg-6 col-md-6 col-sm-12">
        
         <div class="profile-user-post-titles">
 
@@ -37,7 +37,7 @@
           </ul>
 
           {% endif %}
-          <h5>{{user.username}} has {{current_user_posts.count}} posts</h5>
+          <h5 class="profile-post-count">{{user.username}} has {{current_user_posts.count}} posts</h5>
           <h5>Top Posts</h5>
           {% for t in top_likes%}
 
@@ -78,7 +78,9 @@
 
         </div>
 
-        <div class="follower-following-info col-6">
+     
+
+        <div class="follower-following-info col-lg-6 col-md-6 col-sm-12">
          
         
           <h5>{{user.username}} follows {{follow_profiles.count}} people</h5>
@@ -90,6 +92,8 @@
         </div>
         <p><a href="{% url 'profile-following-list' user.username %}">Sell All</a><p>
         
+        
+
         <h5>{{user.username}} is followed by {{follower_profiles.count}} people</h5>
         <div class="profile-follower-info-wrap">
         {% for profile in follower_profiles %}
@@ -99,11 +103,15 @@
       
         <p><a href="{% url 'profile-follower-list' user.username %}">Sell All</a><p>
         </div>
-
+ 
       </div>
-
-        <button><a href="{% url 'profile-update' %}">Update Profile</a></button>
+      
       </div>
+  
+      <div class="content-section">
+        <button class="btn btn-primary profile-update-profile-button"><a  href="{% url 'profile-update' %}">Update Profile</a></button>
+      </div>
+ 
 {% endblock content %}
 
 

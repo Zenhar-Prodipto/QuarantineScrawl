@@ -3,3 +3,4 @@ posts.json
 datadump.json
 runtime.txt
 metainfo.txt
+.env

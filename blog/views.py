@@ -40,7 +40,7 @@ class HomePostListView(LoginRequiredMixin, ListView):
 
 class AmigosPostListView(LoginRequiredMixin, ListView):
 
-    template_name = "blog/followspost.html"
+    template_name = "blog/homeWithAmigos.html"
 
     def get_queryset(self):
         loggedInUser = Profile.objects.get(user=self.request.user)
@@ -249,54 +249,94 @@ class ProfileVisitView(LoginRequiredMixin, ListView):
     def top_liked_posts_list(self):
         viewProfile = get_object_or_404(Profile, user=self.get_object())
         viewProfilePosts = Post.objects.filter(author=viewProfile.user)
-
         top_likes_list = []
 
         for post in viewProfilePosts:
             top_likes_list.append(post.liked.all().count())
 
-        top = sorted(top_likes_list, reverse=True)
-        return top
+        top = sorted(top_likes_list, reverse=True)[:3]
+        return top[:3]
 
-    def number_of_post_count(self):
-        top = self.top_liked_posts()
-        if len(top) == 0:
+    def number_of_top_post_count(self):
+        if len(self.top_liked_posts_list()) == 0:
             no_post = True
             return no_post
-        elif len(top) == 1:
+        elif len(self.top_liked_posts_list()) == 1:
             one_post = True
             return one_post
-        elif len(top) == 2:
+        elif len(self.top_liked_posts_list()) == 2:
             two_posts = True
             return two_posts
-        elif len(top) == 3:
+        elif len(self.top_liked_posts_list()) == 3:
             three_posts = True
             return three_posts
         else:
             return more
+
+    # def top_liked_posts_list(self):
+    #     viewProfile = get_object_or_404(Profile, user=self.get_object())
+    #     viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+
+    #     top_likes_list = []
+
+    #     for post in viewProfilePosts:
+    #         top_likes_list.append(post.liked.all().count())
+
+    #     top = sorted(top_likes_list, reverse=True)
+    #     return top[:3]  # first 3 elements
+
+    # def number_of_post_count(self):
+    #     top = self.top_liked_posts()
+    #     if len(top) == 0:
+    #         no_post = True
+    #         return no_post
+    #     elif len(top) == 1:
+    #         one_post = True
+    #         return one_post
+    #     elif len(top) == 2:
+    #         two_posts = True
+    #         return two_posts
+    #     elif len(top) == 3:
+    #         three_posts = True
+    #         return three_posts
+    #     else:
+    #         more = True
+    #         return more
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # viewProfile = get_object_or_404(Profile, user=self.get_object())
         viewProfile = Profile.objects.get(user=self.get_object())
         viewProfilePosts = Post.objects.filter(author=viewProfile.user)
+        top_likes_list = []
 
+        for post in viewProfilePosts:
+            top_likes_list.append(post.liked.all().count())
+
+        top = sorted(top_likes_list, reverse=True)[:3]
+
+        # order_by("-date")[0:3]
         context["top"] = self.top_liked_posts_list()
         context["viewProfile"] = viewProfile
         context["viewProfilePosts"] = viewProfilePosts
-        context["top_likes"]: viewProfilePosts.objects.filter(
+        context["top_likes"] = viewProfilePosts.filter(
             liked__in=self.top_liked_posts_list()
         )
-        context["no_post"]: self.number_of_post_count()
-        context["one_post"]: self.number_of_post_count()
-        context["two_posts"]: self.number_of_post_count()
-        context["three_posts"]: self.number_of_post_count()
-        context["follow_profiles"]: Profile.objects.filter(
+        # context["top_likes"]: viewProfilePosts.objects.filter(
+        #     liked__in=self.top_liked_posts_list()
+        # )
+        context["no_post"] = self.number_of_top_post_count()
+        context["one_post"] = self.number_of_top_post_count()
+        context["two_posts"] = self.number_of_top_post_count()
+        context["three_posts"] = self.number_of_top_post_count()
+        context["follow_profiles"] = Profile.objects.filter(
             user__in=viewProfile.follow.all()
         )
-        context["follower_profiles"]: Profile.objects.filter(
+        context["follower_profiles"] = Profile.objects.filter(
             user__in=viewProfile.follower.all()
         )
+        context["list"] = top
+        context["ob"] = viewProfilePosts.filter(liked__in=top)
 
         return context
 
@@ -305,10 +345,27 @@ class VisitProfilefollowingListView(LoginRequiredMixin, ListView):
     template_name = "blog/visit_profile_following_list.html"
     model = Profile
 
+    def no_of_following(self):
+
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+        following_Profiles = Profile.objects.filter(user__in=viewProfile.follow.all())
+
+        if following_Profiles.count == 0:
+            no_profile = True
+            return no_profile
+        elif following_Profiles.count == 1:
+            one_profile = True
+            return one_profile
+        else:
+            more_than_one_profile = True
+            return more_than_one_profile
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
         viewProfile = Profile.objects.get(user=usernameFromURL)
+        following_Profiles = Profile.objects.filter(user__in=viewProfile.follow.all())
 
         context["viewProfile"] = viewProfile
         context["following_Profiles"] = Profile.objects.filter(
@@ -318,6 +375,13 @@ class VisitProfilefollowingListView(LoginRequiredMixin, ListView):
             author__in=viewProfile.follow.all()
         )
 
+        for profile in following_Profiles:
+            context["f"] = Post.objects.filter(author=profile.user)
+
+        context["no_profile"] = self.no_of_following()
+        context["one_profile"] = self.no_of_following()
+        context["more_than_one_profile"] = self.no_of_following()
+
         return context
 
 
@@ -325,10 +389,26 @@ class VisitProfilefollowerListView(LoginRequiredMixin, ListView):
     template_name = "blog/visit_profile_follower_list.html"
     model = Profile
 
+    def no_of_followers(self):
+        usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
+        viewProfile = Profile.objects.get(user=usernameFromURL)
+        follower_Profiles = Profile.objects.filter(user__in=viewProfile.follower.all())
+
+        if follower_Profiles.count == 0:
+            no_profile = True
+            return no_profile
+        elif follower_Profiles.count == 1:
+            one_profile = True
+            return one_profile
+        else:
+            more_than_one_profile = True
+            return more_than_one_profile
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         usernameFromURL = get_object_or_404(User, username=self.kwargs.get("username"))
         viewProfile = Profile.objects.get(user=usernameFromURL)
+        follower_Profiles = Profile.objects.filter(user__in=viewProfile.follower.all())
 
         context["viewProfile"] = viewProfile
         context["follower_Profiles"] = Profile.objects.filter(
@@ -337,6 +417,11 @@ class VisitProfilefollowerListView(LoginRequiredMixin, ListView):
         context["follower_Profile_Posts"] = Post.objects.filter(
             author__in=viewProfile.follower.all()
         )
+
+        context["no_profile"] = self.no_of_followers()
+        context["one_profile"] = self.no_of_followers()
+        context["more_than_one_profile"] = self.no_of_followers()
+        context["s"] = follower_Profiles.count
 
         return context
 

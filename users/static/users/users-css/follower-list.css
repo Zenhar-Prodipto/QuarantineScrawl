@@ -114,18 +114,184 @@
 }
 
 .follower-list-unfollow-form {
-  display: inline-block;
-  transform: translate(180%, -300%);
+  /* display: inline-block;
+  transform: translate(180%, -300%); */
+  position: relative;
+  top: 15%;
+  left: -46%;
 }
 
 .follower-list-follow-form {
-  display: inline-block;
-  transform: translate(180%, -300%);
+  /* display: inline-block;
+  transform: translate(180%, -300%); */
+
+  position: relative;
+  top: 15%;
+  left: -46%;
 }
 
 .follower-list-remove-friend-form {
-  position: relative;
+  /* position: relative;
   left: 40%;
   transform: translate(-600%, -300%);
-  display: inline-block;
+  display: inline-block; */
+
+  position: relative;
+  top: 25%;
+  left: -46%;
+}
+
+/* =========================================================================================*/
+/* ========================================================================================= */
+/* ========================================================================================= */
+/* =========================================================================================  */
+/* ========================================================================================= */
+/* ==========================================================================================*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .follower-list-head {
+    height: 35vh;
+    background-color: white;
+  }
+
+  .follower-list-profile-picture {
+    height: 60%;
+    width: 50%;
+    position: relative;
+    top: 2.5%;
+    left: 26%;
+    object-fit: cover;
+  }
+
+  .follower-list-currentUser-username {
+    position: relative;
+    top: 69%;
+    left: -10%;
+    font-size: 25px;
+  }
+
+  .follower-list-wrap {
+    height: 100%;
+    background-color: white;
+  }
+
+  .follower-list-header {
+    height: 15%;
+    /* border: 1px black solid; */
+    padding-left: 1%;
+  }
+
+  .follower-list-count {
+    font-size: 16px;
+    margin-left: 2%;
+  }
+
+  .follower-list-header-text {
+    font-size: 16px;
+    margin-bottom: 20%;
+    margin-left: 2%;
+  }
+
+  .follower-list-card {
+    height: 30%;
+    background-color: white;
+    /* border: 1px black solid; */
+  }
+
+  .follower-list-card-profile-picture {
+    /* display: inline-block; */
+    position: relative;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    top: -23%;
+    left: 0%;
+  }
+
+  .follower-list-card-info {
+    position: relative;
+    left: 10%;
+  }
+
+  .follower-list-card-username {
+    /* position: relative;
+    -webkit-transform: translate(9%, -250%);
+    -moz-transform: translate(9%, -250%);
+    -ms-transform: translate(9%, -250%);
+    -o-transform: translate(9%, -250%);
+    transform: translate(9%, -250%); */
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: 30%;
+    left: 12%;
+  }
+
+  .follower-list-following-status {
+    /* display: inline-block; */
+    /* position: relative;
+    -webkit-transform: translate(9%, -250%);
+    -moz-transform: translate(9%, -250%);
+    -ms-transform: translate(9%, -250%);
+    -o-transform: translate(9%, -250%);
+    transform: translate(43%, -400%); */
+    /* font-size: 16px;
+    display: inline-block;
+    position: relative;
+    transform: translate(0%, -70%); */
+
+    position: relative;
+    top: 40%;
+    left: -6%;
+  }
+
+  .follower-list-post-count {
+    /* display: inline-block;
+    position: relative;
+    -webkit-transform: translate(9%, -250%);
+    -moz-transform: translate(9%, -250%);
+    -ms-transform: translate(9%, -250%);
+    -o-transform: translate(9%, -250%);
+    transform: translate(-86%, -300%); */
+    font-size: 16px;
+    /* display: inline-block; */
+    position: relative;
+    top: 6%;
+    left: -6%;
+    /* transform: translate(-150%, 0%);
+    transform: translate(0%, -70%); */
+  }
+  .follower-list-some-text {
+    display: inline-block;
+  }
+
+  .follower-list-unfollow-form {
+    /* display: inline-block;
+    transform: translate(180%, -300%); */
+    position: relative;
+    top: 15%;
+    left: -46%;
+  }
+
+  .follower-list-follow-form {
+    /* display: inline-block;
+    transform: translate(180%, -300%); */
+    position: relative;
+    top: 15%;
+    left: -46%;
+  }
+
+  .follower-list-remove-friend-form {
+    /* transform: translate(-600%, -300%);
+    display: inline-block;  */
+
+    position: relative;
+    left: -46%;
+    top: 20%;
+  }
 }

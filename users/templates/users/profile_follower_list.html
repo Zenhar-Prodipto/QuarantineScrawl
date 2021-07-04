@@ -16,14 +16,24 @@
         <h2 class="follower-list-currentUser-username account-heading">{{user.username}}</h2>
     </div>
     
+
+
     <div class="follower-list-wrap">
  
+
       <div class="follower-list-header">
-        
-          <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profiles</p>
-          <p class="follower-list-header-text">Profiles that follow you-</p>
-      </div>
-  
+
+        {% if follower_Profiles.count < 1 %}
+        <p class="follower-list-count">you are followed by nobody</p>
+        {% elif follower_Profiles.count > 1   %}
+        <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profiles</p>
+        <p class="follower-list-header-text">Profiles that follow you-</p>
+
+        {% else  %}
+        <p class="follower-list-count">you are followed by {{follower_Profiles.count}} profile</p>
+        <p class="follower-list-header-text">Profiles that follow you-</p>
+        {% endif %}
+    </div>
       {% for profile in follower_Profiles %}
       <div class="follower-list-card">
           <img class="follower-list-card-profile-picture rounded-circle account-img" src="{{profile.image.url}}" alt="user-profile-picture">
@@ -39,7 +49,7 @@
       <p class="follower-list-following-status">You do not follow {{profile.user.username}} </p>
       {% endif %}
       
-      <p class="follower-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p>
+      <!-- <p class="follower-list-post-count">{{profile.user.username}} has <strong>{{post.title.count}} posts</strong></p> -->
       
     </div>
   
