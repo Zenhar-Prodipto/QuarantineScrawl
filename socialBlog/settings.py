@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import dotenv
 
+# to store media files on heroku
+import cloudinary
+import cloudinary_storage
+import cloudinary api
+
 # this line is already in your settings.py
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -54,6 +59,9 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "ckeditor",
     "ckeditor_uploader",
+    # Media Cloudinary
+    "cloudinary",
+    "cloudinary_storage",
 ]
 
 MIDDLEWARE = [
@@ -181,6 +189,15 @@ CKEDITOR_CONFIGS = {
     },
 }
 # CKEDITOR_UPLOAD_PATH = "blog/blog_post_images"
+
+# CLOUDINARY STUFF
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "zenhar",
+    "API_KEY": os.getenv("API_KEY"),
+    "API_SECRET": os.getenv("API_SECRET"),
+}
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # email password
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
