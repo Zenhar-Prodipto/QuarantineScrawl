@@ -4,3 +4,5 @@ datadump.json
 runtime.txt
 metainfo.txt
 .env
+userstorage.py
+user_code_storage

@@ -33,6 +33,7 @@ from django.urls import reverse_lazy
 # Create your views here.
 def register(request):
     if request.method == "POST":
+
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
