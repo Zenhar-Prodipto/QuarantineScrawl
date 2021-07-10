@@ -2,6 +2,10 @@
 
 A micro blogging site where you talk about your quarantine journey and explore how other people are spending their quarantines!!!
 
+# Demo
+
+[QuarantineScrawl](https://quarantinescrawl.herokuapp.com/)
+
 # Screenshots
 
 <ul>
@@ -10,10 +14,6 @@ A micro blogging site where you talk about your quarantine journey and explore h
 <li>Profile</li>
 <img src="socialBlog/images/VisitProfile.png">
 </ul>
-
-# Demo
-
-[QuarantineScrawl](https://qurantinescrawl.herokuapp.com/)
 
 # Features
 
